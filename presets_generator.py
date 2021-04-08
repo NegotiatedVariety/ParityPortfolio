@@ -74,4 +74,4 @@ class PresetList:
         self._preset_dict.clear()
 
         for preset in preset_list:
-            self._preset_dict[preset["preset_name"]] = Preset(preset["preset_name"], preset["domestic_stock"], preset["international stock"], preset["bonds"], preset["money market"])
+            self._preset_dict[preset["preset_name"]] = Preset(preset["preset_name"], preset["domestic_stock"], preset["international_stock"], preset["bonds"], preset["money market"])
