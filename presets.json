@@ -1,0 +1,23 @@
+[
+  {
+    "preset_name": "Conservative",
+    "domestic_stock": 0.14,
+    "international_stock": 0.06,
+    "bonds": 0.5,
+    "money_market": 0.3
+  },
+  {
+    "preset_name": "Balanced",
+    "domestic_stock": 0.35,
+    "international_stock": 0.15,
+    "bonds": 0.4,
+    "money_market": 0.1
+  },
+  {
+    "preset_name": "Aggressive",
+    "domestic_stock": 0.6,
+    "international_stock": 0.25,
+    "bonds": 0.15,
+    "money_market": 0.0
+  }
+]
