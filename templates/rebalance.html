@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %} Rebalance {% endblock %}
+{% block content %}
+<h1>Your Rebalanced Portfolio</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Categories</th>
+            <th>My Current Portfolio</th>
+            <th>%</th>
+            <th>Preset Targets</th>
+            <th>%</th>
+            <th>Rebalance $</th>
+            <th>Rebalance %</th>
+        </tr>
+    </thead>
+<tbody>
+    {% for row in data %}
+        <tr>
+            {% for column in row %}
+                <td>{{ column }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+{% endblock %}
