@@ -82,7 +82,7 @@ def login():
         user_query = User.query.filter_by(username=user).first()
 
         if user_query is None:
-            flash("Invalid Username", "error")
+            flash("Username invalid, please register or try again", "error")
             return render_template('login.html', form = form)
         elif user_query.password != password:
             flash("Invalid Login", "error")
@@ -103,6 +103,11 @@ def userDashboard():
         flash("Please login or register")
         return redirect(url_for('home'))
 
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    flash("Logged out", "success")
+    return redirect(url_for('home'))
 
 # run on debug mode to not re-start server after changes
 if __name__ == '__main__':
