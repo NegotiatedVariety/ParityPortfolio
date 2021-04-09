@@ -17,7 +17,7 @@ def home():
     return render_template('home.html')
 
 @app.route("/presets")
-def json_dump():
+def presets():
     return render_template('presets.html', title='Base Data', preset_data = preset_data)
 
 @app.route('/register', methods=['GET', 'POST'])
