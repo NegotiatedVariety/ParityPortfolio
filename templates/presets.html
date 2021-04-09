@@ -10,9 +10,11 @@
   <p> Here's some JSON data </p>
 
     {% for data in preset_data %}
-        <p>{{ data.one_thing }} </p>
-        <p>{{ data.two_thing }}</p>
-        <h2>{{ data.three_thing }}</h2>
+        <h2>{{ data.preset_name }}</h2>
+        <p>{{ data.domestic_stock }}</p>
+        <p>{{ data.international_stock }}</p>
+        <p>{{ data.bonds }}</p>
+        <p>{{ data.money_market }}</p>
     {% endfor %}
       
 {% endblock %}
