@@ -70,8 +70,12 @@ def login():
     form = forms.LoginForm()
 
     if request.method == "GET":
+        # user already logged in, redirect to dashboard
+        if "user" in session:
+            flash("Already logged in!", "success")
+            return redirect(url_for("userDashboard"))
+
         return render_template('login.html', form = form)
-        print(User.query.all())
     elif request.method == "POST" and form.validate_on_submit():
         user = request.form['username']
         password = request.form['password']
@@ -88,7 +92,6 @@ def login():
             session['user'] = user_query.username
             return redirect(url_for('userDashboard'))
 
-    return render_template('login.html', form = form)
     
 
 @app.route('/userDashboard')
@@ -97,7 +100,8 @@ def userDashboard():
         user = session['user']
         return render_template('userDashboard.html', user = user)
     else:
-        return redirect(url_for('login'))
+        flash("Please login or register")
+        return redirect(url_for('home'))
 
 
 # run on debug mode to not re-start server after changes
