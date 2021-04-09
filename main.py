@@ -75,7 +75,7 @@ def enter_port():
 
 
 @app.route('/results', methods=['GET', 'POST'])
-def rebalance():
+def results():
 
     user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).first()
     selected_preset = preset_data[1]
