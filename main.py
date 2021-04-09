@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect 
+from flask import Flask, render_template, url_for, redirect, request, flash, session
 from forms import RegistrationForm
 from flask_sqlalchemy import SQLAlchemy
 import json
@@ -18,7 +18,6 @@ class User(db.Model):
 
    def __repr__(self):
        return f"User('{self.username}')"
-
 
 
 with open('presets.json', 'r') as input:
@@ -47,13 +46,36 @@ def register():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     form = forms.LoginForm()
-    if form.validate_on_submit():
-        return redirect('userDashboard')
+
+    if request.method == "GET":
+        return render_template('login.html', form = form)
+        print(User.query.all())
+    elif request.method == "POST" and form.validate_on_submit():
+        user = request.form['username']
+        password = request.form['password']
+        user_query = User.query.filter_by(username=user).first()
+
+        if user_query is None:
+            flash("Invalid Username", "error")
+            return render_template('login.html', form = form)
+        elif user_query.password != password:
+            flash("Invalid Login", "error")
+            return render_template('login.html', form = form)
+        
+        else:
+            session['user'] = user_query.username
+            return redirect(url_for('userDashboard'))
+
     return render_template('login.html', form = form)
+    
 
 @app.route('/userDashboard')
 def userDashboard():
-    return render_template('userDashboard.html')
+    if 'user' in session:
+        user = session['user']
+        return render_template('userDashboard.html', user = user)
+    else:
+        return redirect(url_for('login'))
 
 
 # run on debug mode to not re-start server after changes
