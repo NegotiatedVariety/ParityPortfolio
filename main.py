@@ -1,6 +1,8 @@
 from flask import Flask, render_template, url_for, redirect, request, flash, session
 from forms import RegistrationForm, LoginForm, PortfolioForm
 from flask_sqlalchemy import SQLAlchemy
+from flask_nav import Nav
+from flask_nav.elements import Navbar, View
 import json
 import forms
 
@@ -9,6 +11,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'QUWU7Ax94jCsknrT'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
+
+nav = Nav(app)
 
 # creates a User table in the database with appropriate columns 
 class User(db.Model):
@@ -33,6 +37,24 @@ class Portfolio(db.Model):
 
 with open('presets.json', 'r') as input:
     preset_data = json.load(input)
+
+@nav.navigation('the_nav')
+def create_nav():
+    if 'user' in session:
+        return Navbar( 'Parity Portfolio',
+                        View('Home', 'home'),
+                        View('Dashboard', 'userDashboard'),
+                        View('Portfolio Selections', 'presets'),
+                        View('Add Portfolio', 'enter_port'),
+                        View('Logout', 'logout')
+        )
+
+    else:
+        return Navbar( 'Parity Portfolio',
+                        View('Home', 'home'),
+                        View('Register', 'register'),
+                        View('Login', 'login')
+        )
 
 @app.route('/')
 @app.route('/home')
@@ -81,20 +103,25 @@ def login():
         if "user" in session:
             flash("Already logged in!", "success")
             return redirect(url_for("userDashboard"))
-
+        # user must login, redirected to login
         return render_template('login.html', form = form)
+    
     elif request.method == "POST" and form.validate_on_submit():
         user = request.form['username']
         password = request.form['password']
         user_query = User.query.filter_by(username=user).first()
 
+        # username not in db
         if user_query is None:
             flash("Username invalid, please register or try again", "error")
             return render_template('login.html', form = form)
+        
+        # password for user was incorrect
         elif user_query.password != password:
             flash("Invalid Login", "error")
             return render_template('login.html', form = form)
         
+        # login successful
         else:
             session['user'] = user_query.username
             session['userID'] = user_query.id
@@ -106,7 +133,6 @@ def login():
 def userDashboard():
     if 'user' in session:
         user = session['user']
-        print(session['userID'])
         return render_template('userDashboard.html', user = user)
     else:
         return NotLoggedIn()
@@ -116,6 +142,7 @@ def userDashboard():
 @app.route('/logout')
 def logout():
     session.pop('user', None)
+    session.pop('userID', None)
     flash("Logged out", "success")
     return redirect(url_for('home'))
 
