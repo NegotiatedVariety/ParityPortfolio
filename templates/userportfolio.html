@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %} Enter Your Portfolio Details {% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+  <h1>Enter Your Portfolio Details</h1>
+
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+        <div>
+            {{ form.domestic.label }}
+
+            {% if form.domestic.errors %}
+                {{ form.domestic(class="is-invalid") }}
+                <div class="invalid-feedback">
+                        <span>{{ form.domestic.errors }}</span>
+                </div>
+            {% else %}
+                {{ form.domestic }}
+            {% endif %}
+        </div>
+        <div>
+            {{ form.international.label }}
+
+            {% if form.international.errors %}
+                {{ form.international(class="is-invalid") }}
+                <div class="invalid-feedback">
+                        <span>{{ form.international.errors }}</span>
+                </div>
+            {% else %}
+                {{ form.international }}
+            {% endif %}
+        </div>
+        <div>
+            {{ form.money_market.label }}
+
+            {% if form.money_market.errors %}
+                {{ form.money_market(class="is-invalid") }}
+                <div class="invalid-feedback">
+                        <span>{{ form.money_market.errors }}</span>
+                </div>
+            {% else %}
+                {{ form.money_market }}
+            {% endif %}
+        </div>
+        <div>
+            {{ form.bonds.label }}
+
+            {% if form.bonds.errors %}
+                {{ form.bonds(class="is-invalid") }}
+                <div class="invalid-feedback">
+                        <span>{{ form.bonds.errors }}</span>
+                </div>
+            {% else %}
+                {{ form.bonds }}
+            {% endif %}
+        </div>
+
+        </fieldset>
+        <div>
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+{% endblock %}

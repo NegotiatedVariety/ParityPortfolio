@@ -1,5 +1,5 @@
-from flask import Flask, render_template, url_for, redirect 
-from forms import RegistrationForm
+from flask import Flask, render_template, url_for, redirect, request, flash, session
+from forms import RegistrationForm, LoginForm, PortfolioForm
 from flask_sqlalchemy import SQLAlchemy
 import json
 import forms
@@ -19,6 +19,16 @@ class User(db.Model):
    def __repr__(self):
        return f"User('{self.username}')"
 
+class Portfolio(db.Model):
+   id = db.Column(db.Integer, primary_key = True)
+   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+   international = db.Column(db.Integer, nullable=False)
+   domestic = db.Column(db.Integer, nullable=False)
+   bonds = db.Column(db.Integer, nullable=False)
+   money_market = db.Column(db.Integer, nullable=False)
+
+   def __repr__(self):
+       return f"User('{self.user_id}', '{self.domestic}')"
 
 
 with open('presets.json', 'r') as input:
@@ -44,17 +54,60 @@ def register():
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
+@app.route('/enterport', methods=['GET', 'POST'])
+def enter_port():
+    form = PortfolioForm()
+    if form.validate_on_submit():
+        # create instance of a portfolio info with info entered from form
+        data = Portfolio(domestic=form.domestic.data, international=form.international.data, money_market=form.money_market.data, bonds=form.bonds.data)
+        db.session.add(data)
+        db.session.commit()
+        return redirect(url_for('home'))
+    return render_template('userportfolio.html', title='Portfolio', form=form)
+
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     form = forms.LoginForm()
-    if form.validate_on_submit():
-        return redirect('userDashboard')
-    return render_template('login.html', form = form)
+
+    if request.method == "GET":
+        # user already logged in, redirect to dashboard
+        if "user" in session:
+            flash("Already logged in!", "success")
+            return redirect(url_for("userDashboard"))
+
+        return render_template('login.html', form = form)
+    elif request.method == "POST" and form.validate_on_submit():
+        user = request.form['username']
+        password = request.form['password']
+        user_query = User.query.filter_by(username=user).first()
+
+        if user_query is None:
+            flash("Username invalid, please register or try again", "error")
+            return render_template('login.html', form = form)
+        elif user_query.password != password:
+            flash("Invalid Login", "error")
+            return render_template('login.html', form = form)
+        
+        else:
+            session['user'] = user_query.username
+            return redirect(url_for('userDashboard'))
+
+    
 
 @app.route('/userDashboard')
 def userDashboard():
-    return render_template('userDashboard.html')
+    if 'user' in session:
+        user = session['user']
+        return render_template('userDashboard.html', user = user)
+    else:
+        flash("Please login or register")
+        return redirect(url_for('home'))
 
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    flash("Logged out", "success")
+    return redirect(url_for('home'))
 
 # run on debug mode to not re-start server after changes
 if __name__ == '__main__':

@@ -21,7 +21,7 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-lg fixed-top navbar-light" style="background-color: rgb(167, 167, 167);">
             <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="#">Parity Portfolio</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -30,13 +30,28 @@
                 <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
                 <a class="nav-link" href="{{ url_for('register') }}">Register</a>
                 <a class="nav-link" href="{{ url_for('presets') }}">Portfolio Selections</a>
+                <a class="nav-link" href="{{url_for('login') }}">Login</a>
+                <a class="nav-link" href="{{ url_for('enter_port') }}">Enter Your Portfolio</a>
                 </div>
             </div>
             </div>
         </nav>
       </header>
      
+     
        <div>
+           {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <!-- Do something with the message -->
+                        <div class="{% if category == 'error' %} alert alert-danger {% else %} alert alert-success {% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
             <!--html from other pages will dispay here-->
             {% block content %}{% endblock %}
         </div>
