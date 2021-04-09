@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, redirect 
-from forms import RegistrationForm
+from forms import RegistrationForm, LoginForm, PortfolioForm
 from flask_sqlalchemy import SQLAlchemy
 import json
 import forms
@@ -18,6 +18,17 @@ class User(db.Model):
 
    def __repr__(self):
        return f"User('{self.username}')"
+
+class Portfolio(db.Model):
+   id = db.Column(db.Integer, primary_key = True)
+   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+   international = db.Column(db.Integer, nullable=False)
+   domestic = db.Column(db.Integer, nullable=False)
+   bonds = db.Column(db.Integer, nullable=False)
+   money_market = db.Column(db.Integer, nullable=False)
+
+   def __repr__(self):
+       return f"User('{self.user_id}', '{self.domestic}')"
 
 
 
@@ -43,6 +54,17 @@ def register():
         db.session.commit()
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route('/enterport', methods=['GET', 'POST'])
+def enter_port():
+    form = PortfolioForm()
+    if form.validate_on_submit():
+        # create instance of a portfolio info with info entered from form
+        data = Portfolio(domestic=form.domestic.data, international=form.international.data, money_market=form.money_market.data, bonds=form.bonds.data)
+        db.session.add(data)
+        db.session.commit()
+        return redirect(url_for('home'))
+    return render_template('userportfolio.html', title='Portfolio', form=form)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
