@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, redirect
 from forms import RegistrationForm
 from flask_sqlalchemy import SQLAlchemy
 import json
+import forms
 
 app = Flask(__name__)
 
@@ -9,7 +10,11 @@ app.config['SECRET_KEY'] = 'QUWU7Ax94jCsknrT'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
 
+<<<<<<< HEAD
 # creates a User table in the database with appropriate columns 
+=======
+
+>>>>>>> d863c4972c0f8ea155459f69e0451c4ec652542d
 class User(db.Model):
    id = db.Column(db.Integer, primary_key = True)
    username = db.Column(db.String(50), unique=True, nullable=False)
@@ -43,6 +48,16 @@ def register():
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    form = forms.LoginForm()
+    if form.validate_on_submit():
+        return redirect('userDashboard')
+    return render_template('login.html', form = form)
+
+@app.route('/userDashboard')
+def userDashboard():
+    return render_template('userDashboard.html')
 
 
 # run on debug mode to not re-start server after changes

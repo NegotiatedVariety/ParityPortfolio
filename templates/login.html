@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %} Register {% endblock %}
+{% block content %}
+<h1>Login</h1>
+
+<form method="POST" action='/login'>
+    <!--CSRF Token-->
+    {{ form.hidden_tag() }}
+    
+    {{ render_formfield(form.username) }}
+    {{ render_formfield(form.password) }}
+
+    </br>
+    {{ form.submit() }}
+{% endblock %}
