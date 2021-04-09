@@ -57,13 +57,20 @@ def register():
 @app.route('/enterport', methods=['GET', 'POST'])
 def enter_port():
     form = PortfolioForm()
-    if form.validate_on_submit():
-        # create instance of a portfolio info with info entered from form
-        data = Portfolio(domestic=form.domestic.data, international=form.international.data, money_market=form.money_market.data, bonds=form.bonds.data)
-        db.session.add(data)
-        db.session.commit()
-        return redirect(url_for('home'))
-    return render_template('userportfolio.html', title='Portfolio', form=form)
+
+    if request.method == "GET":
+        if 'user' in session:
+            return render_template('userportfolio.html', title='Portfolio', form=form)
+        else:
+            flash("You must be logged in to access that page!")
+            return redirect(url_for('login'))
+    else:    
+        if form.validate_on_submit():
+            # create instance of a portfolio info with info entered from form
+            data = Portfolio(domestic=form.domestic.data, international=form.international.data, money_market=form.money_market.data, bonds=form.bonds.data)
+            db.session.add(data)
+            db.session.commit()
+            return redirect(url_for('home'))
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -90,6 +97,7 @@ def login():
         
         else:
             session['user'] = user_query.username
+            session['userID'] = user_query.id
             return redirect(url_for('userDashboard'))
 
     
@@ -98,15 +106,22 @@ def login():
 def userDashboard():
     if 'user' in session:
         user = session['user']
+        print(session['userID'])
         return render_template('userDashboard.html', user = user)
     else:
-        flash("Please login or register")
-        return redirect(url_for('home'))
+        return NotLoggedIn()
+
+
 
 @app.route('/logout')
 def logout():
     session.pop('user', None)
     flash("Logged out", "success")
+    return redirect(url_for('home'))
+
+
+def NotLoggedIn():
+    flash("Please login or register")
     return redirect(url_for('home'))
 
 # run on debug mode to not re-start server after changes
