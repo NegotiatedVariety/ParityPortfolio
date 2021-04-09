@@ -9,6 +9,7 @@ app.config['SECRET_KEY'] = 'QUWU7Ax94jCsknrT'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
 
+# creates a User table in the database with appropriate columns 
 class User(db.Model):
    id = db.Column(db.Integer, primary_key = True)
    username = db.Column(db.String(50), unique=True, nullable=False)
@@ -35,11 +36,14 @@ def presets():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
+        # create instance of a user with info entered from Registration form
         user = User(username=form.username.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
+
+
 
 # run on debug mode to not re-start server after changes
 if __name__ == '__main__':
