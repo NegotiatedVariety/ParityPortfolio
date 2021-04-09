@@ -10,7 +10,7 @@ app.config['SECRET_KEY'] = 'QUWU7Ax94jCsknrT'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
 
-# creates a User table in the database with appropriate columns 
+# Creates a User table in database with appropriate columns 
 class User(db.Model):
    id = db.Column(db.Integer, primary_key = True)
    username = db.Column(db.String(50), unique=True, nullable=False)
@@ -19,6 +19,7 @@ class User(db.Model):
    def __repr__(self):
        return f"User('{self.username}')"
 
+# Creates a Portfolio table in database with appropriate columns 
 class Portfolio(db.Model):
    id = db.Column(db.Integer, primary_key = True)
    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -64,7 +65,7 @@ def enter_port():
         db.session.add(data)
         db.session.commit()
         return redirect(url_for('home'))
-    return render_template('userportfolio.html', title='Portfolio', form=form)
+    return render_template('userportfolio.html', title='Enter Your Portfolio', form=form)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
