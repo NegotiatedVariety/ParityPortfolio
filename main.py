@@ -10,11 +10,7 @@ app.config['SECRET_KEY'] = 'QUWU7Ax94jCsknrT'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
 
-<<<<<<< HEAD
 # creates a User table in the database with appropriate columns 
-=======
-
->>>>>>> d863c4972c0f8ea155459f69e0451c4ec652542d
 class User(db.Model):
    id = db.Column(db.Integer, primary_key = True)
    username = db.Column(db.String(50), unique=True, nullable=False)
