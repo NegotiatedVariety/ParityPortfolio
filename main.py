@@ -74,11 +74,12 @@ def enter_port():
             return redirect(url_for('home'))
 
 
-@app.route('/rebalance', methods=['GET', 'POST'])
+@app.route('/results', methods=['GET', 'POST'])
 def rebalance():
 
     user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).first()
     selected_preset = preset_data[1]
+    preset_name = selected_preset['preset_name']
 
     domestic = user_portfolio.domestic
     international = user_portfolio.international
@@ -126,7 +127,7 @@ def rebalance():
     # Pack rows
     output = [domestic_row, international_row, bonds_row, money_market_row]
 
-    return render_template('rebalance.html', title='Rebalance', data=output)
+    return render_template('results.html', title='Results', data=output, preset_name=preset_name)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
