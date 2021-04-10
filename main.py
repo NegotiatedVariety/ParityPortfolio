@@ -210,7 +210,6 @@ def userDashboard():
         
         labels = ["Domestic", "International", "Bonds", "Money Market"]
         values = [user_portfolio.domestic, user_portfolio.international, user_portfolio.bonds, user_portfolio.money_market]
-        user_chart = charts.doughnut(labels, values)
         colors = ['yellow', 'blue', 'red', 'green']
         return render_template('userDashboard.html', user = user, labels = labels, values = values, colors = colors)
     else:
