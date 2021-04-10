@@ -59,6 +59,7 @@ def create_nav():
                         View('Login', 'login')
         )
 
+
 @app.route('/')
 @app.route('/home')
 def home(): 
@@ -92,17 +93,30 @@ def enter_port():
     else:    
         if form.validate_on_submit():
             # create instance of a portfolio info with info entered from form
-            data = Portfolio(user_id=session['userID'], domestic=form.domestic.data, international=form.international.data, money_market=form.money_market.data, bonds=form.bonds.data)
+            data = Portfolio(user_id=session['userID'], domestic=form.domestic.data, 
+            international=form.international.data, money_market=form.money_market.data, bonds=form.bonds.data)
             db.session.add(data)
             db.session.commit()
             return redirect(url_for('home'))
+
+
+@app.route('/test', methods=['GET', 'POST'])
+def test():
+    if request.form['preset-btn'] == "Select Conservative":
+        return render_template('test.html')
+    if request.form['preset-btn'] == "Select Balanced":
+        return render_template('home.html')
+    if request.form['preset-btn'] == "Select Aggressive":
+        return render_template('test.html')
+
+    
 
 
 @app.route('/results', methods=['GET', 'POST'])
 def results():
 
     user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).first()
-    selected_preset = preset_data[1]
+    selected_preset = preset_data[int(request.form['preset-btn'])]
     preset_name = selected_preset['preset_name']
 
     domestic = user_portfolio.domestic
@@ -142,11 +156,12 @@ def results():
     percent_diff_bonds = target_bonds_percent - percent_bonds
     percent_diff_money_market = target_money_market_percent - percent_money_market
 
+
     # Pack columns
-    domestic_row = ["Domestic Stock", domestic, percent_domestic, target_domestic_percent, cash_diff_domestic, percent_diff_domestic]
-    international_row = ["International Stock", international, percent_international, target_international_percent, cash_diff_international, percent_diff_international]
-    bonds_row = ["Bonds", bonds, percent_bonds, target_bonds_percent, cash_diff_bonds, percent_diff_bonds]
-    money_market_row = ["Money Market", money_market, percent_money_market, target_money_market_percent, cash_diff_money_market, cash_diff_money_market, percent_diff_money_market]
+    domestic_row = ["Domestic Stock"] + ['{:,.2f}'.format(round(x, 2)) for x in [domestic, percent_domestic, target_domestic_percent, cash_diff_domestic, percent_diff_domestic]]
+    international_row = ["International Stock"] + ['{:,.2f}'.format(round(x, 2)) for x in [international, percent_international, target_international_percent, cash_diff_international, percent_diff_international]]
+    bonds_row = ["Bonds"] + ['{:,.2f}'.format(round(x, 2)) for x in [bonds, percent_bonds, target_bonds_percent, cash_diff_bonds, percent_diff_bonds]]
+    money_market_row = ["Money Market"] + ['{:,.2f}'.format(round(x, 2)) for x in [money_market, percent_money_market, target_money_market_percent, cash_diff_money_market, cash_diff_money_market, percent_diff_money_market]]
 
     # Pack rows
     output = [domestic_row, international_row, bonds_row, money_market_row]
