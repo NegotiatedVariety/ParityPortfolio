@@ -81,7 +81,6 @@ def register():
 @app.route('/enterport', methods=['GET', 'POST'])
 def enter_port():
     form = PortfolioForm()
-
     if request.method == "GET":
         if 'user' in session:
             return render_template('userportfolio.html', title='Portfolio', form=form)
@@ -101,7 +100,7 @@ def enter_port():
 @app.route('/results', methods=['GET', 'POST'])
 def results():
 
-    user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).first()
+    user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
     selected_preset = preset_data[int(request.form['preset-btn'])]
     preset_name = selected_preset['preset_name']
 
