@@ -2,4 +2,46 @@
 
 {% block content %}
 <h1>Welcome {{ user }} </h1>
+
+<div id="currentPortfolioChart">
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+    let ctx = document.getElementById('myChart').getContext('2d');
+    let myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                {% for label in labels %}
+                    "{{ label }}",
+                {% endfor %}
+            ],
+            datasets: [{
+                label: '# of Votes',
+                data: [
+                    {% for val in values %}
+                        {{ val }},
+                    {% endfor %}
+                ],
+                backgroundColor: [
+                    {% for color in colors %}
+                        "{{ color }}",
+                    {% endfor %}
+                ],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    text: "Current Portfolio",
+                    display: true
+                }
+            }
+        }
+    });
+</script>
+
+
 {% endblock %}
