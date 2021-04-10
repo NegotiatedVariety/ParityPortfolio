@@ -45,7 +45,7 @@ def create_nav():
         return Navbar( 'Parity Portfolio',
                         View('Home', 'home'),
                         View('Dashboard', 'userDashboard'),
-                        View('Add Portfolio', 'enter_port'),
+                        View('Update Portfolio', 'enter_port'),
                         View('Rebalance Portfolio', 'presets'),
                         View('Logout', 'logout')
         )
@@ -208,6 +208,10 @@ def userDashboard():
         user = session['user']
         userID = session['userID']
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
+        if user_portfolio is None:
+            flash("Please enter portfolio data first")
+            return redirect(url_for('home'))
+
         
         labels = ["Domestic", "International", "Bonds", "Money Market"]
         values = [user_portfolio.domestic, user_portfolio.international, user_portfolio.bonds, user_portfolio.money_market]
