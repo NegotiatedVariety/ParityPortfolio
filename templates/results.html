@@ -17,10 +17,10 @@
         </tr>
     </thead>
 <tbody>
-    {% for row in data %}
+    {% for i in range(data[0]| length) %}
         <tr>
-            {% for column in row %}
-                <td>{{ column }}</td>
+            {% for j in range(data| length) %}
+                <td>{{ data[j][i] }}</td>
             {% endfor %}
         </tr>
     {% endfor %}
