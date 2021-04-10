@@ -68,7 +68,8 @@ def enter_port():
     else:    
         if form.validate_on_submit():
             # create instance of a portfolio info with info entered from form
-            data = Portfolio(user_id=session['userID'], domestic=form.domestic.data, international=form.international.data, money_market=form.money_market.data, bonds=form.bonds.data)
+            data = Portfolio(user_id=session['userID'], domestic=form.domestic.data, 
+            international=form.international.data, money_market=form.money_market.data, bonds=form.bonds.data)
             db.session.add(data)
             db.session.commit()
             return redirect(url_for('home'))
