@@ -45,9 +45,8 @@ def create_nav():
         return Navbar( 'Parity Portfolio',
                         View('Home', 'home'),
                         View('Dashboard', 'userDashboard'),
-                        View('Portfolio Selections', 'presets'),
                         View('Add Portfolio', 'enter_port'),
-                        View('Rebalance Portfolio', 'results'), 
+                        View('Rebalance Portfolio', 'presets'),
                         View('Logout', 'logout')
         )
 
