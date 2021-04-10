@@ -58,6 +58,7 @@ def create_nav():
                         View('Login', 'login')
         )
 
+
 @app.route('/')
 @app.route('/home')
 def home(): 
@@ -96,6 +97,13 @@ def enter_port():
             db.session.add(data)
             db.session.commit()
             return redirect(url_for('home'))
+
+
+@app.route('/test', methods=['GET', 'POST'])
+def test():
+    if request.method == 'POST':
+        return render_template('test.html', title='test')
+    
 
 
 @app.route('/results', methods=['GET', 'POST'])
