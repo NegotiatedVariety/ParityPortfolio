@@ -49,7 +49,6 @@ def create_nav():
                         View('Rebalance Portfolio', 'presets'),
                         View('Logout', 'logout')
         )
-
     else:
         return Navbar( 'Parity Portfolio',
                         View('Home', 'home'),
@@ -185,8 +184,10 @@ def login():
         if "user" in session:
             flash("Already logged in!", "success")
             return redirect(url_for("userDashboard"))
+
         # user must login, redirected to login
-        return render_template('login.html', form = form)
+        else:
+            return render_template('login.html', form = form)
     
     elif request.method == "POST" and form.validate_on_submit():
         user = request.form['username']
@@ -205,6 +206,7 @@ def login():
         
         # login successful
         else:
+            session.clear()
             session['user'] = user_query.username
             session['userID'] = user_query.id
             return redirect(url_for('userDashboard'))
@@ -233,8 +235,7 @@ def userDashboard():
 
 @app.route('/logout')
 def logout():
-    session.pop('user', None)
-    session.pop('userID', None)
+    session.clear()
     flash("Logged out", "success")
     return redirect(url_for('home'))
 
