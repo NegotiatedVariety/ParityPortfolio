@@ -10,3 +10,9 @@ body {
 ul > li {
   display: inline;
 }
+
+#currentPortfolioChart {
+  width: 400px;
+  height: 400px;
+
+}
