@@ -2,34 +2,50 @@
 {{ super() }} {% endblock %} {% block content %}
 
 <div class="container">
-  <div class="row col-md-9">
     <div class="row">
-      <div class="jumbotron text-left col-md-10">
+      <div class="jumbotron text-left">
         <h1>Welcome to Parity Portfolio</h1>
         <p>
           A simple utility tool to take the fuss out of rebalancing, completely
           agnostic of broker, investment, and platform.
         </p>
-
-        <hr class="md-4" />
       </div>
       <div class="row p-1 mb-3">
-
-        <div class="p-3 m-3 col-md-3 text-center rounded" style="background: #e9c46a;">
-          <img src="../static/images/clipboard.png" class="img-fluid mb-2" style="height: 100px;">
+        <div
+          class="p-3 m-3 col-md-3 text-center rounded"
+          style="background: #e9c46a;"
+        >
+          <img
+            src="../static/images/clipboard.png"
+            class="img-fluid mb-2"
+            style="height: 100px;"
+          />
           <p style="color: black;">Enter your portfolio</p>
         </div>
 
-        <div class="p-3 m-3 col-md-3 text-center rounded" style="background: #f4a261;">
-          <img src="../static/images/pie-chart.png" class="img-fluid mb-2" style="height: 100px;">
+        <div
+          class="p-3 m-3 col-md-3 text-center rounded"
+          style="background: #f4a261;"
+        >
+          <img
+            src="../static/images/pie-chart.png"
+            class="img-fluid mb-2"
+            style="height: 100px;"
+          />
           <p style="color: black;">Select a target portfolio</p>
         </div>
 
-        <div class="p-3 m-3 col-md-3 text-center rounded" style="background: #2a9d8f;">
-          <img src="../static/images/balance.png" class="img-fluid mb-2" style="height: 100px;">
+        <div
+          class="p-3 m-3 col-md-3 text-center rounded"
+          style="background: #2a9d8f;"
+        >
+          <img
+            src="../static/images/balance.png"
+            class="img-fluid mb-2"
+            style="height: 100px;"
+          />
           <p style="color: black;">See your rebalancing guide!</p>
         </div>
-
       </div>
     </div>
     <div class="row justify-content-center col-md-10">
@@ -37,6 +53,5 @@
         <button type="button" class="btn btn-dark btn-lg">Get Started</button>
       </div>
     </div>
-  </div>
 </div>
 {% endblock %}
