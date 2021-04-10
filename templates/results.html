@@ -2,55 +2,56 @@
 
 {% block title %} Results {% endblock %}
 {% block content %}
-<h1>Your Rebalanced Portfolio</h1>
-<h2>Selected Preset: {{ preset_name }}</h2>
+<div class="container">
+    <h1>Your Rebalancing Guide</h1>
+    <p>Selected Preset: {{ preset_name }}</p>
 
-<div class="resultsTable">
-<table style ="width:75%; white-space:nowrap;">
-    <thead>
-        <tr>
-            <th>Categories</th>
-            <th>Current Investments</th>
-            <th>Current Allocations</th>
-            <th>Target Allocations</th>
-            <th>Target Investments</th>
-            <th>Differential ($)</th>
-            <th>Differential (%)</th>
-        </tr>
-    </thead>
-<tbody>
-    {% for i in range(data[0]| length) %}
-        <tr>
-            {% for j in range(data| length) %}
-
-                {% if data[j][i][0] == '+' %}
-                <td style="color:#228B22;">
-
-                {% elif data[j][i][0] == '-' %}
-                <td style="color:#DC143C;">
-
-                {% else %}
-                <td>
-                {% endif %}
-
-                {{ data[j][i] }}
-                </td>
-            {% endfor %}
-        </tr>
-    {% endfor %}
-</tbody>
-</table>
-</div>
-
-<div class="advice">
-    <ul style="display:list-item; list-style-type:square">
+    <div class="resultsTable">
+    <table class="table" style ="width:75%; white-space:nowrap;">
+        <thead>
+            <tr>
+                <th>Categories</th>
+                <th>Your Portfolio ($)</th>
+                <th>Your Portfolio (%)</th>
+                <th>{{ preset_name}} ($)</th>
+                <th>{{ preset_name}} (%)</th>
+                <th>Rebalance ($)</th>
+                <th>Rebalance (%)</th>
+            </tr>
+        </thead>
+    <tbody>
         {% for i in range(data[0]| length) %}
-            {% if data[5][i][0] != '$' %}
-            <li>You should <b>{% if data[5][i][0] == '+' %} invest {% else %} sell {% endif %} {{ data[5][i][1:] }}</b>
-                in <b>{{ data[0][i] }}</b></li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-</div>
+            <tr>
+                {% for j in range(data| length) %}
 
+                    {% if data[j][i][0] == '+' %}
+                    <td style="color:#228B22;">
+
+                    {% elif data[j][i][0] == '-' %}
+                    <td style="color:#DC143C;">
+
+                    {% else %}
+                    <td>
+                    {% endif %}
+
+                    {{ data[j][i] }}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    </div>
+
+    <div class="advice">
+        <ul style="display:list-item; list-style-type:square">
+            {% for i in range(data[0]| length) %}
+                {% if data[5][i][0] != '$' %}
+                <li>You should <b>{% if data[5][i][0] == '+' %} invest {% else %} sell {% endif %} {{ data[5][i][1:] }}</b>
+                    in <b>{{ data[0][i] }}</b></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock %}
