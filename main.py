@@ -5,7 +5,6 @@ from flask_nav import Nav
 from flask_nav.elements import Navbar, View
 import json
 import forms
-import charts
 
 app = Flask(__name__)
 
