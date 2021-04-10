@@ -1,0 +1,8 @@
+<script id="chartScript" async>
+    let chartTitle = "{{ title }}";
+    let chartLabels = {{ labels | safe }};
+    let chartValues = {{ values | safe }};
+    let chartColors = {{ colors | safe }};
+</script>
+
+<script src="{{url_for('static', filename='doughnutChart.js')}}" defer></script>

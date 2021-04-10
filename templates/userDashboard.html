@@ -1,47 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Welcome {{ user }} </h1>
 
-<div id="currentPortfolioChart">
-    <canvas id="myChart"></canvas>
-</div>
+    <!--Doughnut Chart Script-->
+    {% include "doughnutChartHelper.html" %}
+    
 
-<script>
-    let ctx = document.getElementById('myChart').getContext('2d');
-    let myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: [
+    <h1>Welcome {{ user }}</h1>
+    <div id="currentPortfolioChart">
+        <canvas id="myChart"></canvas>
+    
+        <table id="currentPortfolioTable">
+            <tr>
                 {% for label in labels %}
-                    "{{ label }}",
+                    <th>{{ label }}</th>
                 {% endfor %}
-            ],
-            datasets: [{
-                label: '# of Votes',
-                data: [
-                    {% for val in values %}
-                        {{ val }},
-                    {% endfor %}
-                ],
-                backgroundColor: [
-                    {% for color in colors %}
-                        "{{ color }}",
-                    {% endfor %}
-                ],
-                hoverOffset: 4
-            }]
-        },
-        options: {
-            plugins: {
-                title: {
-                    text: "Current Portfolio",
-                    display: true
-                }
-            }
-        }
-    });
-</script>
-
+            </tr>
+            <tr>
+                {% for value in values %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
 
 {% endblock %}
