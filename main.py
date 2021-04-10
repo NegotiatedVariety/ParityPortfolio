@@ -101,8 +101,13 @@ def enter_port():
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
-    if request.method == 'POST':
-        return render_template('test.html', title='test')
+    if request.form['preset-btn'] == "Select Conservative":
+        return render_template('test.html')
+    if request.form['preset-btn'] == "Select Balanced":
+        return render_template('home.html')
+    if request.form['preset-btn'] == "Select Aggressive":
+        return render_template('test.html')
+
     
 
 
