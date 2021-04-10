@@ -81,7 +81,6 @@ def register():
 @app.route('/enterport', methods=['GET', 'POST'])
 def enter_port():
     form = PortfolioForm()
-
     if request.method == "GET":
         if 'user' in session:
             return render_template('userportfolio.html', title='Portfolio', form=form)
