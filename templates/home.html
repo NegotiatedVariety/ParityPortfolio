@@ -1,20 +1,40 @@
 {% extends "base.html" %} {% block title %} Home {% endblock %} {% block head %}
 {{ super() }} {% endblock %} {% block content %}
 
-<h1>TEST CSS WHY DOESNT IT WORK WHY</h1>
-
 <div class="container">
-  <div class="row border-left">
+  <div class="row">
     <div class="jumbotron text-left">
-      <h1>Parity Portfolio</h1>
+      <h1>Welcome to Parity Portfolio</h1>
       <p>
         A simple utility tool to take the fuss out of rebalancing, completely
-        agnostic of broker and individual investments.
+        agnostic of broker, investment, and platform.
       </p>
 
       <hr class="md-4" />
     </div>
+    <div class="row p-1">
+
+      <div class="p-3 m-3 col-md-3 justify-content-center rounded" style="background: #e9c46a;">
+        <img src="../static/images/clipboard.png" class="img-fluid" style="height: 100px;">
+        <p>Enter your portfolio</p>
+      </div>
+
+      <div class="p-3 m-3 col-md-3 rounded" style="background: #f4a261;">
+        <img src="../static/images/pie-chart.png" class="img-fluid" style="height: 100px;">
+        <p style="color: black;">Select a target portfolio</p>
+      </div>
+
+      <div class="p-3 m-3 col-md-3 rounded" style="background: #2a9d8f;">
+        <img src="../static/images/balance.png" class="img-fluid" style="height: 100px;">
+        <p>See your rebalancing guide!</p>
+      </div>
+
+    </div>
   </div>
-  <button type="button" class="btn btn-primary btn-lg">Get Started</button>
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <button type="button" class="btn btn-dark btn-lg">Get Started</button>
+    </div>
+  </div>
 </div>
 {% endblock %}
