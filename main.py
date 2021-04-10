@@ -99,6 +99,7 @@ def enter_port():
             return redirect(url_for('home'))
 
 
+# TEST FOR BUTTONS DELETE LATER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if request.form['preset-btn'] == "Select Conservative":
@@ -108,7 +109,6 @@ def test():
     if request.form['preset-btn'] == "Select Aggressive":
         return render_template('test.html')
 
-    
 
 
 @app.route('/results', methods=['GET', 'POST'])

@@ -24,5 +24,5 @@ class PortfolioForm(FlaskForm):
     domestic = StringField('Domestic: $', validators=[DataRequired()])
     money_market = StringField('Money Market: $', validators=[DataRequired()])
     bonds = StringField('Bonds: $', validators=[DataRequired()])
-    submit = SubmitField('Enter: $')
+    submit = SubmitField('Enter')
 
