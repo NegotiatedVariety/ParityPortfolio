@@ -23,7 +23,7 @@ class User(db.Model):
    def __repr__(self):
        return f"User('{self.username}')"
 
-# Creates a Portfolio table in database with appropriate columns 
+# Creates a Portfolio table in database with appropriate columns
 class Portfolio(db.Model):
    id = db.Column(db.Integer, primary_key = True)
    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -78,7 +78,16 @@ def home():
 
 @app.route("/presets")
 def presets():
-    return render_template('presets.html', title='Base Data', preset_data = preset_data)
+
+    if 'user' not in session:
+        flash("You must be logged in to access that page!")
+        return redirect(url_for('login'))
+    else:
+        user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
+        if user_portfolio is None:
+            flash("Please Update your Portfolio data first")
+            return redirect(url_for('enter_port'))
+        return render_template('presets.html', title='Base Data', preset_data = preset_data)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
