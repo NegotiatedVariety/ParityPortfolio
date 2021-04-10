@@ -70,12 +70,20 @@ def presets():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
+    
     if form.validate_on_submit():
         # create instance of a user with info entered from Registration form
         user = User(username=form.username.data, password=form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        return redirect(url_for('home'))
+        new_user = request.form['username']
+        user_query = User.query.filter_by(username=new_user).first()
+        if user_query is not None:
+            flash('Username exists. Please choose another.')
+            return redirect(url_for('register'))
+        else:
+            db.session.add(user)
+            db.session.commit()
+            flash("Thank you for registering!")
+            return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/enterport', methods=['GET', 'POST'])

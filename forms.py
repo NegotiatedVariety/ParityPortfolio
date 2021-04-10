@@ -4,8 +4,7 @@ from wtforms.validators import Length, DataRequired, EqualTo, InputRequired, Ema
 from wtforms.fields.html5 import EmailField
 
 class RegistrationForm(FlaskForm):
-    # username must be between 5 and 15 characters
-    username =StringField('Username', validators=[DataRequired(), Length(min=5, max=20)])
+    username =StringField('Username', validators=[DataRequired(), Length(max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
