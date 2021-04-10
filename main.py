@@ -3,6 +3,7 @@ from forms import RegistrationForm, LoginForm, PortfolioForm
 from flask_sqlalchemy import SQLAlchemy
 from flask_nav import Nav
 from flask_nav.elements import Navbar, View
+from flask_bootstrap import Bootstrap
 import json
 import forms
 
@@ -13,6 +14,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
 
 nav = Nav(app)
+Bootstrap(app)
 
 # Creates a User table in database with appropriate columns 
 class User(db.Model):
@@ -39,6 +41,7 @@ class Portfolio(db.Model):
 with open('presets.json', 'r') as input:
     preset_data = json.load(input)
 
+
 @nav.navigation('the_nav')
 def create_nav():
     if 'user' in session:
@@ -55,6 +58,8 @@ def create_nav():
                         View('Register', 'register'),
                         View('Login', 'login')
         )
+
+
 
 
 @app.route('/')

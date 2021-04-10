@@ -6,6 +6,9 @@ body {
 .navbar > ul {
   list-style-type: none;
 }
+ .navbar-default {
+   color: rgb(153, 207, 127);
+ }
 
 ul > li {
   display: inline;
