@@ -1,20 +1,180 @@
-{% extends "base.html" %}
-{% block title %} Preset {% endblock %}
-{% block head %}
-  {{ super() }}
+{% extends "base.html" %} {% block title %} Preset {% endblock %} {% block head
+%} {{ super() }} {% endblock %} {% block content %}
+<div class="container">
+  <div class="title" style="margin-bottom: 30px;">
+    <h1>Pick a preset</h1>
+    <p>Your preset will be your template to rebalance against</p>
+  </div>
+  <div class="row">
+    <div class="col-md-4 d-flex align-items-stretch">
+      <div class="card" style="width: 16rem;">
+        <div style="padding: 15px;">
+          <table class="table" style="border: none;">
+            <thead>
+              <tr>
+                <td>
+                  <div>14%</div>
+                </td>
+                <th>
+                  <div>Domestic Stock</div>
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <div>6%</div>
+                </td>
+                <th>
+                  <div>International Stock</div>
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <div>50%</div>
+                </td>
+                <th>
+                  <div>Bonds</div>
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <div>30%</div>
+                </td>
+                <th>
+                  <div>Money Market</div>
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Conservative</h5>
+          <p class="card-text">
+            A middle of the road portfolio with some volatility, and moderate
+            long term returns
+          </p>
+          <div class="text-center">
+            <a href="#" class="btn btn-primary">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-{% endblock %}
+    <div class="col-md-4 d-flex align-items-stretch">
+      <div class="card" style="width: 16rem;">
+        <div style="padding: 15px;">
+          <table class="table" style="border: none;">
+            <thead>
+              <tr>
+                <td>
+                  <div>35%</div>
+                </td>
+                <th>
+                  <div>Domestic Stock</div>
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <div>15%</div>
+                </td>
+                <th>
+                  <div>International Stock</div>
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <div>40%</div>
+                </td>
+                <th>
+                  <div>Bonds</div>
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <div>10%</div>
+                </td>
+                <th>
+                  <div>Money Market</div>
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Balanced</h5>
+          <p class="card-text">
+            A middle of the road portfolio with some volatility, and moderate
+            long term returns
+          </p>
+          <div class="text-center">
+            <a href="#" class="btn btn-primary">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-{% block content %}
-  <h1>Preset Info</h1>
-  <p> Here's some JSON data </p>
+    <div class="col-md-4 d-flex align-items-stretch">
+      <div class="card" style="width: 16rem;">
+        <div style="padding: 15px;">
+          <table class="table" style="border: none;">
+            <thead>
+              <tr>
+                <td>
+                  <div>60%</div>
+                </td>
+                <th>
+                  <div>Domestic Stock</div>
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <div>25%</div>
+                </td>
+                <th>
+                  <div>International Stock</div>
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <div>15%</div>
+                </td>
+                <th>
+                  <div>Bonds</div>
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <div>0%</div>
+                </td>
+                <th>
+                  <div>Money Market</div>
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Aggressive</h5>
+          <p class="card-text">
+            A middle of the road portfolio with some volatility, and moderate
+            long term returns
+          </p>
+          <div class="text-center">
+            <a href="#" class="btn btn-primary">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    {% for data in preset_data %}
-        <h2>{{ data.preset_name }}</h2>
-        <p>{{ data.domestic_stock }}</p>
-        <p>{{ data.international_stock }}</p>
-        <p>{{ data.bonds }}</p>
-        <p>{{ data.money_market }}</p>
-    {% endfor %}
-      
-{% endblock %}
+<br />
+<br />
+<p>Here's some JSON data</p>
+
+{% for data in preset_data %}
+<h2>{{ data.preset_name }}</h2>
+<p>{{ data.domestic_stock }}</p>
+<p>{{ data.international_stock }}</p>
+<p>{{ data.bonds }}</p>
+<p>{{ data.money_market }}</p>
+{% endfor %} {% endblock %}
