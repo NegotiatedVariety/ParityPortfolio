@@ -1,23 +1,23 @@
 [
   {
     "preset_name": "Conservative",
-    "domestic_stock": 0.14,
-    "international_stock": 0.06,
-    "bonds": 0.5,
-    "money_market": 0.3
+    "domestic_stock": 14,
+    "international_stock": 6,
+    "bonds": 50,
+    "money_market": 30
   },
   {
     "preset_name": "Balanced",
-    "domestic_stock": 0.35,
-    "international_stock": 0.15,
-    "bonds": 0.4,
-    "money_market": 0.1
+    "domestic_stock": 35,
+    "international_stock": 15,
+    "bonds": 40,
+    "money_market": 10
   },
   {
     "preset_name": "Aggressive",
-    "domestic_stock": 0.6,
-    "international_stock": 0.25,
-    "bonds": 0.15,
-    "money_market": 0.0
+    "domestic_stock": 60,
+    "international_stock": 25,
+    "bonds": 15,
+    "money_market": 0
   }
 ]

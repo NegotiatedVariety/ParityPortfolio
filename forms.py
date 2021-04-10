@@ -20,9 +20,9 @@ class LoginForm(FlaskForm):
 
 
 class PortfolioForm(FlaskForm):
-    international = StringField('International: $', validators=[DataRequired()])
-    domestic = StringField('Domestic: $', validators=[DataRequired()])
-    money_market = StringField('Money Market: $', validators=[DataRequired()])
-    bonds = StringField('Bonds: $', validators=[DataRequired()])
-    submit = SubmitField('Enter')
+    international = StringField('$', validators=[DataRequired()])
+    domestic = StringField('$', validators=[DataRequired()])
+    money_market = StringField('$', validators=[DataRequired()])
+    bonds = StringField('$', validators=[DataRequired()])
+    submit = SubmitField('Submit Portfolio')
 
