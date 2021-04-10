@@ -45,9 +45,8 @@ def create_nav():
         return Navbar( 'Parity Portfolio',
                         View('Home', 'home'),
                         View('Dashboard', 'userDashboard'),
-                        View('Portfolio Selections', 'presets'),
                         View('Add Portfolio', 'enter_port'),
-                        View('Rebalance Portfolio', 'results'), 
+                        View('Rebalance Portfolio', 'presets'),
                         View('Logout', 'logout')
         )
 
@@ -82,7 +81,6 @@ def register():
 @app.route('/enterport', methods=['GET', 'POST'])
 def enter_port():
     form = PortfolioForm()
-
     if request.method == "GET":
         if 'user' in session:
             return render_template('userportfolio.html', title='Portfolio', form=form)
@@ -99,22 +97,10 @@ def enter_port():
             return redirect(url_for('home'))
 
 
-@app.route('/test', methods=['GET', 'POST'])
-def test():
-    if request.form['preset-btn'] == "Select Conservative":
-        return render_template('test.html')
-    if request.form['preset-btn'] == "Select Balanced":
-        return render_template('home.html')
-    if request.form['preset-btn'] == "Select Aggressive":
-        return render_template('test.html')
-
-    
-
-
 @app.route('/results', methods=['GET', 'POST'])
 def results():
 
-    user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).first()
+    user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
     selected_preset = preset_data[int(request.form['preset-btn'])]
     preset_name = selected_preset['preset_name']
 
@@ -122,14 +108,15 @@ def results():
     international = user_portfolio.international
     bonds = user_portfolio.bonds
     money_market = user_portfolio.money_market
+    current_investments_col = [domestic, international, bonds, money_market]
 
-    total_investments = sum([domestic, international, bonds, money_market])
+    total_investments = sum(current_investments_col)
 
     # Calculate current percentages
-    percent_domestic = domestic / total_investments
-    percent_international = international / total_investments
-    percent_bonds = bonds / total_investments
-    percent_money_market = money_market / total_investments
+    percent_domestic = domestic / total_investments * 100
+    percent_international = international / total_investments * 100
+    percent_bonds = bonds / total_investments * 100
+    percent_money_market = money_market / total_investments * 100
 
     # Determine target percentages
     target_domestic_percent = selected_preset['domestic_stock']
@@ -138,10 +125,10 @@ def results():
     target_money_market_percent = selected_preset['money_market']
 
     # Calculate target investments
-    target_domestic_investment = target_domestic_percent * total_investments
-    target_international_investment = target_international_percent * total_investments
-    target_bonds_investment = target_bonds_percent * total_investments
-    target_money_market_investment = target_money_market_percent * total_investments
+    target_domestic_investment = target_domestic_percent / 100 * total_investments
+    target_international_investment = target_international_percent / 100 * total_investments
+    target_bonds_investment = target_bonds_percent / 100 * total_investments
+    target_money_market_investment = target_money_market_percent / 100 * total_investments
 
     # Calculate rebalance $ amount
     cash_diff_domestic = target_domestic_investment - domestic
@@ -155,15 +142,29 @@ def results():
     percent_diff_bonds = target_bonds_percent - percent_bonds
     percent_diff_money_market = target_money_market_percent - percent_money_market
 
+    # Create columns
+    categories_col = ["Domestic Stock", "International Stock", "Bonds", "Money Market"]
+    current_percentage_col = [percent_domestic, percent_international, percent_bonds, percent_money_market]
+    target_percentage_col = [target_domestic_percent, target_international_percent, target_bonds_percent,
+                             target_money_market_percent]
+    target_investment_col = [target_domestic_investment, target_international_investment, target_bonds_investment,
+                             target_money_market_investment]
+    cash_diff_col = [cash_diff_domestic, cash_diff_international, cash_diff_bonds, cash_diff_money_market]
+    percent_diff_col = [percent_diff_domestic, percent_diff_international, percent_diff_bonds,
+                        percent_diff_money_market]
 
-    # Pack columns
-    domestic_row = ["Domestic Stock"] + ['{:,.2f}'.format(round(x, 2)) for x in [domestic, percent_domestic, target_domestic_percent, cash_diff_domestic, percent_diff_domestic]]
-    international_row = ["International Stock"] + ['{:,.2f}'.format(round(x, 2)) for x in [international, percent_international, target_international_percent, cash_diff_international, percent_diff_international]]
-    bonds_row = ["Bonds"] + ['{:,.2f}'.format(round(x, 2)) for x in [bonds, percent_bonds, target_bonds_percent, cash_diff_bonds, percent_diff_bonds]]
-    money_market_row = ["Money Market"] + ['{:,.2f}'.format(round(x, 2)) for x in [money_market, percent_money_market, target_money_market_percent, cash_diff_money_market, cash_diff_money_market, percent_diff_money_market]]
+    # Format output columns
+    current_investments_col = ['$' + '{:,.2f}'.format(round(x, 2)) for x in current_investments_col]
+    current_percentage_col = ['{:,.2f}'.format(round(x, 2)) + '%' for x in current_percentage_col]
+    target_percentage_col = ['{:,.2f}'.format(round(x, 2)) + '%' for x in target_percentage_col]
+    target_investment_col = ['$' + '{:,.2f}'.format(round(x, 2)) for x in target_investment_col]
+    cash_diff_col = ['+$' + '{:,.2f}'.format(round(x, 2)) if x > 0 else '$' + '{:,.2f}'.format(
+        round(x, 2)) if x == 0 else '-$' + '{:,.2f}'.format(round(abs(x), 2)) for x in cash_diff_col]
+    percent_diff_col = ['+' + '{:,.2f}'.format(round(x, 2)) + '%' if x > 0 else '{:,.2f}'.format(
+        round(x, 2)) + '%' if x == 0 else '-' + '{:,.2f}'.format(round(abs(x), 2)) + '%' for x in percent_diff_col]
 
-    # Pack rows
-    output = [domestic_row, international_row, bonds_row, money_market_row]
+    output = [categories_col, current_investments_col, current_percentage_col, target_percentage_col,
+              target_investment_col, cash_diff_col, percent_diff_col]
 
     return render_template('results.html', title='Results', data=output, preset_name=preset_name)
 

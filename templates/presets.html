@@ -7,7 +7,7 @@
   </div>
   <div class="row">
     <div class="col-md-4 d-flex align-items-stretch">
-      <div class="card" style="width: 16rem;">
+      <div class="card p-3 border bg-light">
         <div style="padding: 15px;">
           <table class="table" style="border: none;">
             <thead>
@@ -46,25 +46,26 @@
             </thead>
           </table>
         </div>
-        <div class="card-body">
+        <div class="card-body text-center">
           <h5 class="card-title">Conservative</h5>
           <p class="card-text">
-            A middle of the road portfolio with some volatility, and moderate
-            long term returns
+            A steady portfolio with a less bumpy ride and reduced potential for
+             long term returns
           </p>
+          <hr/>
           <div class="text-center">
-
             <form action="/results" method="Post">
-              <button name="preset-btn" type="submit" value="0">Select Conservative</button>
+              <button name="preset-btn" type="submit" value="0">
+                Select Conservative
+              </button>
             </form>
-
           </div>
         </div>
       </div>
     </div>
 
     <div class="col-md-4 d-flex align-items-stretch">
-      <div class="card" style="width: 16rem;">
+      <div class="card p-3 border bg-light" style="background: #a8dadc;">
         <div style="padding: 15px;">
           <table class="table" style="border: none;">
             <thead>
@@ -103,25 +104,26 @@
             </thead>
           </table>
         </div>
-        <div class="card-body">
+        <div class="card-body text-center">
           <h5 class="card-title">Balanced</h5>
           <p class="card-text">
             A middle of the road portfolio with some volatility, and moderate
             long term returns
           </p>
+          <hr/>
           <div class="text-center">
-
             <form action="/results" method="Post">
-              <button name="preset-btn" type="submit" value="1">Select Balanced</button>
+              <button name="preset-btn" type="submit" value="1">
+                Select Balanced
+              </button>
             </form>
-
           </div>
         </div>
       </div>
     </div>
 
     <div class="col-md-4 d-flex align-items-stretch">
-      <div class="card" style="width: 16rem;">
+      <div class="card p-3 border bg-light">
         <div style="padding: 15px;">
           <table class="table" style="border: none;">
             <thead>
@@ -160,33 +162,23 @@
             </thead>
           </table>
         </div>
-        <div class="card-body">
+        <div class="card-body text-center">
           <h5 class="card-title">Aggressive</h5>
           <p class="card-text">
-            A middle of the road portfolio with some volatility, and moderate
-            long term returns
+            A portfolio built for maximizing long term returns with 
+            significant fluctuations in value
           </p>
+          <hr/>
           <div class="text-center">
-
             <form action="/results" method="Post">
-              <button name="preset-btn" type="submit" value="2">Select Aggressive</button>
+              <button name="preset-btn" type="submit" value="2">
+                Select Aggressive
+              </button>
             </form>
-
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<br />
-<br />
-<p>Here's some JSON data</p>
-
-{% for data in preset_data %}
-<h2>{{ data.preset_name }}</h2>
-<p>{{ data.domestic_stock }}</p>
-<p>{{ data.international_stock }}</p>
-<p>{{ data.bonds }}</p>
-<p>{{ data.money_market }}</p>
-{% endfor %} {% endblock %}
+{% endblock %}
