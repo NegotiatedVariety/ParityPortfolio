@@ -11,7 +11,6 @@ ul > li {
   display: inline;
 }
 
-<<<<<<< HEAD
 h1 {
   color:#264653;
 }
@@ -21,6 +20,8 @@ p {
 }
 
 button {
+  width: 100%;
+  max-width: 12em;
   background: #264653;
   display:inline-block;
   padding:0.35em 1.2em;
@@ -53,10 +54,3 @@ button:hover {
   max-width: 100%;
   height: 300px;
 }
-=======
-#currentPortfolioChart {
-  width: 400px;
-  height: 400px;
-
-}
->>>>>>> 198231f11e4a6fd824f7ec83ed1554953f2c7301
