@@ -35,6 +35,18 @@ button:hover {
 
 }
 
+#abtn {
+  text-decoration: none; font: menu;
+  display: inline-block; padding: 2px 8px;
+  background: ButtonFace; color: ButtonText;
+  border-style: solid; border-width: 2px;
+  border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
+}
+
+#abtn:active {
+  border-color: ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow;
+}
+
 @media all and (max-width:30em) {
   button1 {
     display:block;
