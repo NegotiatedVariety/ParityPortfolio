@@ -42,13 +42,27 @@ with open('presets.json', 'r') as input:
 @nav.navigation('the_nav')
 def create_nav():
     if 'user' in session:
-        return Navbar( 'Parity Portfolio',
-                        View('Home', 'home'),
-                        View('Dashboard', 'userDashboard'),
-                        View('Update Portfolio', 'enter_port'),
-                        View('Rebalance Portfolio', 'presets'),
-                        View('Logout', 'logout')
-        )
+
+        user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
+        if user_portfolio is not None:
+
+            return Navbar( 'Parity Portfolio',
+                            View('Home', 'home'),
+                            View('Dashboard', 'userDashboard'),
+                            View('Update Portfolio', 'enter_port'),
+                            View('Rebalance Portfolio', 'presets'),
+                            View('Logout', 'logout')
+            )
+
+        else:
+
+            return Navbar('Parity Portfolio',
+                          View('Home', 'home'),
+                          View('Update Portfolio', 'enter_port'),
+                          View('Logout', 'logout')
+
+            )
+
     else:
         return Navbar( 'Parity Portfolio',
                         View('Home', 'home'),
@@ -69,20 +83,18 @@ def presets():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
-    
     if form.validate_on_submit():
         # create instance of a user with info entered from Registration form
         user = User(username=form.username.data, password=form.password.data)
-        new_user = request.form['username']
-        user_query = User.query.filter_by(username=new_user).first()
-        if user_query is not None:
-            flash('Username exists. Please choose another.')
-            return redirect(url_for('register'))
-        else:
-            db.session.add(user)
-            db.session.commit()
-            flash("Thank you for registering!")
-            return redirect(url_for('home'))
+        db.session.add(user)
+        db.session.commit()
+
+        username = form.username.data
+        user_query = User.query.filter_by(username=username).first()
+        session['user'] = user_query.username
+        session['userID'] = user_query.id
+        return redirect(url_for('home'))
+
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/enterport', methods=['GET', 'POST'])
@@ -101,7 +113,7 @@ def enter_port():
             international=form.international.data, money_market=form.money_market.data, bonds=form.bonds.data)
             db.session.add(data)
             db.session.commit()
-            return redirect(url_for('home'))
+            return redirect(url_for('userDashboard'))
 
 
 @app.route('/results', methods=['GET', 'POST'])
@@ -184,10 +196,8 @@ def login():
         if "user" in session:
             flash("Already logged in!", "success")
             return redirect(url_for("userDashboard"))
-
         # user must login, redirected to login
-        else:
-            return render_template('login.html', form = form)
+        return render_template('login.html', form = form)
     
     elif request.method == "POST" and form.validate_on_submit():
         user = request.form['username']
@@ -209,6 +219,9 @@ def login():
             session.clear()
             session['user'] = user_query.username
             session['userID'] = user_query.id
+            user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
+            if user_portfolio is None:
+                return redirect(url_for('home'))
             return redirect(url_for('userDashboard'))
 
 
@@ -219,7 +232,7 @@ def userDashboard():
         userID = session['userID']
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
         if user_portfolio is None:
-            flash("Please enter portfolio data first")
+            flash("Please Update your Portfolio data first")
             return redirect(url_for('home'))
 
         
