@@ -182,10 +182,10 @@ def results():
     # Create columns
     categories_col = ["Domestic Stock", "International Stock", "Bonds", "Money Market"]
     current_percentage_col = [percent_domestic, percent_international, percent_bonds, percent_money_market]
-    target_percentage_col = [target_domestic_percent, target_international_percent, target_bonds_percent,
-                             target_money_market_percent]
     target_investment_col = [target_domestic_investment, target_international_investment, target_bonds_investment,
                              target_money_market_investment]
+    target_percentage_col = [target_domestic_percent, target_international_percent, target_bonds_percent,
+                             target_money_market_percent]
     cash_diff_col = [cash_diff_domestic, cash_diff_international, cash_diff_bonds, cash_diff_money_market]
     percent_diff_col = [percent_diff_domestic, percent_diff_international, percent_diff_bonds,
                         percent_diff_money_market]
@@ -193,15 +193,15 @@ def results():
     # Format output columns
     current_investments_col = ['$' + '{:,.2f}'.format(round(x, 2)) for x in current_investments_col]
     current_percentage_col = ['{:,.2f}'.format(round(x, 2)) + '%' for x in current_percentage_col]
-    target_percentage_col = ['{:,.2f}'.format(round(x, 2)) + '%' for x in target_percentage_col]
     target_investment_col = ['$' + '{:,.2f}'.format(round(x, 2)) for x in target_investment_col]
+    target_percentage_col = ['{:,.2f}'.format(round(x, 2)) + '%' for x in target_percentage_col]
     cash_diff_col = ['+$' + '{:,.2f}'.format(round(x, 2)) if x > 0 else '$' + '{:,.2f}'.format(
         round(x, 2)) if x == 0 else '-$' + '{:,.2f}'.format(round(abs(x), 2)) for x in cash_diff_col]
     percent_diff_col = ['+' + '{:,.2f}'.format(round(x, 2)) + '%' if x > 0 else '{:,.2f}'.format(
         round(x, 2)) + '%' if x == 0 else '-' + '{:,.2f}'.format(round(abs(x), 2)) + '%' for x in percent_diff_col]
 
-    output = [categories_col, current_investments_col, current_percentage_col, target_percentage_col,
-              target_investment_col, cash_diff_col, percent_diff_col]
+    output = [categories_col, current_investments_col, current_percentage_col, target_investment_col,
+              target_percentage_col, cash_diff_col, percent_diff_col]
 
     return render_template('results.html', title='Results', data=output, preset_name=preset_name)
 
