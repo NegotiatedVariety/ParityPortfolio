@@ -7,16 +7,17 @@ body {
   list-style-type: none;
 }
 
-.navbar {
-  margin-bottom: 0px!important;
-  background-color: white!important;
-  border: none!important;
- /* position: fixed;*/
-  height: 80px;
-  width: 100vw;
-  z-index: 5;
-
+.navbar-nav {
+	margin-bottom: 0px!important;
+    background-color: #2a9d8f!important;
+    border: none!important;
+   /* position: fixed;*/
+    height: 80px;
+    width: 100vw;
+    z-index: 5;
 }
+
+
 
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #888;
