@@ -274,11 +274,11 @@ def userDashboard():
             flash("Please Update Portfolio data first")
             return redirect(url_for('home'))
 
-        
         labels = ["Domestic", "International", "Bonds", "Money Market"]
-        values = [user_portfolio.domestic, user_portfolio.international, user_portfolio.bonds, user_portfolio.money_market]
-        total = [sum(values)]
-        return render_template('userDashboard.html', user = user, labels = labels, values = values, total = total)
+        portfolio_values = [user_portfolio.domestic, user_portfolio.international, user_portfolio.bonds, user_portfolio.money_market]
+        target_values = [target_portfolio.domestic_target, target_portfolio.international_target, target_portfolio.bonds_target, target_portfolio.money_market_target]
+        total = [sum(portfolio_values)]
+        return render_template('userDashboard.html', user = user, labels = labels, values = portfolio_values, total = total, target_values = target_values)
     else:
         return NotLoggedIn()
 
