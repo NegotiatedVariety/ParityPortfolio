@@ -16,17 +16,17 @@
     <!--Doughnut Chart Script-->
     {% include "displaydata.html" %}
     
-    <div id="userDash">
+    <div id="userDash title mb-3">
         <h1>Welcome, {{ user }}!</h1>
-        <p>Here's where you stand</p>
+        <p>Here's a snapshot of your current and target portfolios for rebalance.</p>
         <div id="currentPortfolioDetails" class="container">
-            <div class="row">
+            <!-- <div class="row">
                 <div id="currentPortfolioValue" class="col-sm">
                         <h4>Current Value</h4>
                         <p id="currentValue"></p>
                 </div>
 
-            </div>
+            </div> -->
         </div>
         <div class="userDash-container">
             <div class="grid-item-chart">
@@ -40,7 +40,15 @@
 
             <div class="grid-item-table">
                 <div id="currentPortfolioTable">
-                    <h2>Slices</h2>
+                    <h3>My Portfolio Allocation</h3>
+                    <ul class="portfolioListHeader">
+                        <li>Name</li>
+                        <li>Value</li>
+                        <li>Target</li>
+                    </ul>
+                </div>
+                <div id="targetPortfolioTable">
+                    <h3>Target Allocation</h3>
                     <ul class="portfolioListHeader">
                         <li>Name</li>
                         <li>Value</li>
@@ -53,22 +61,13 @@
             <div class="grid-item-chart">
                 <div id="portfolioChart">
                     <div class="text-center">
-                        <p class="lead">My Target Portfolio</p>
+                        <p class="lead">Target Portfolio</p>
                     </div>
                     <canvas id="myTargetChart"></canvas>
                 </div>
             </div>
 
-            <div class="grid-item-table">
-                <div id="targetPortfolioTable">
-                    <h2>Slices</h2>
-                    <ul class="portfolioListHeader">
-                        <li>Name</li>
-                        <li>Value</li>
-                        <li>Target</li>
-                    </ul>
-                </div>
-            </div>
+
         {% endif %}
 
     </div>
