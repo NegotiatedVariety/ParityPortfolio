@@ -136,7 +136,7 @@ def register():
         session.clear()
         session['user'] = user_query.username
         session['userID'] = user_query.id
-        flash('You have successfuly registered.', 'success')
+        flash('You have successfully registered.', 'success')
         return redirect(url_for('home'))
 
     return render_template('register.html', title='Register', form=form)
