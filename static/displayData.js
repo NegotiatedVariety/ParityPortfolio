@@ -46,7 +46,6 @@ if (chartValues2 != null)
     });
 }
 
-
 createTable = (elementId, chartValues) => {
     let tableDiv = document.getElementById(elementId);
 
@@ -65,7 +64,7 @@ createTable = (elementId, chartValues) => {
         assetValue.innerText = '$' + chartValues[i].toFixed(2);
 
         let assetPercentage = document.createElement('li');
-        assetPercentage.innerText = ((chartValues[i] / chartTotal) * 100) + '%';
+        assetPercentage.innerText = ((chartValues[i] / chartTotal) * 100).toFixed(2) + '%';
 
         tableDiv.appendChild(assetList);
 
@@ -75,10 +74,12 @@ createTable = (elementId, chartValues) => {
     }
 }
 
-createTable('currentPortfolioTable', chartValues1);
-
-// Only create Target Portfolio table if Preset data was received
-if (chartValues2 != null)
+if (showTables == true)
 {
-    createTable('targetPortfolioTable', chartValues2);
+    createTable('currentPortfolioTable', chartValues1);
+    // Only create Target Portfolio table if Preset data was received
+    if (chartValues2 != null)
+    {
+        createTable('targetPortfolioTable', chartValues2);
+    }
 }

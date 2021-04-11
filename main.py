@@ -232,7 +232,7 @@ def results():
     db.session.commit()
 
     return render_template('results.html', title='Results', data=output, preset_name=preset_name, labels=categories_col,
-                           values1=current_investments, values2=target_investments, total=total_investments)
+                           values1=current_investments, values2=target_investments, total=total_investments, show_tables="false")
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -294,7 +294,7 @@ def user_dashboard():
                           user_portfolio.money_market]
         total = sum(current_values)
         return render_template('userdashboard.html', user=user, labels=labels, values1=current_values,
-                               values2=target_values, total=total)
+                               values2=target_values, total=total, show_tables="true")
     else:
         return NotLoggedIn()
 

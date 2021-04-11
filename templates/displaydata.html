@@ -4,6 +4,7 @@
     let chartValues1 = {{ values1 | safe }};
     let chartValues2= {{ values2 | safe }};
     let chartColors = ['#264653', '#2a9d8f', '#e9c46a', '#f4a261'];
+    let showTables = {{ show_tables | safe }};
 </script>
 
 <script src="{{url_for('static', filename='displayData.js')}}" defer></script>
