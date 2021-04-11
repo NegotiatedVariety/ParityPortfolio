@@ -1,87 +1,122 @@
-{% extends "index.html" %}
+{% extends "index.html" %} {% block title %} Results {% endblock %} {% block
+content %}
+<div class="container mb-5">
+  <div class="title mb-4">
+    <h1>My Rebalance Guide</h1>
+    <p>Here's how to rebalance from your current portfolio to your desired
+        target preset.
+    </p>
+  </div>
+  <div class="resultsTable">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th style="border-color: transparent;"></th>
+          <th
+            class="table-warning lead text-center align-bottom"
+            colspan="2"
+            style="border-color: #fff3cd;"
+          >
+            My Portfolio
+          </th>
+          <th
+            class="table-info lead text-center"
+            colspan="2"
+            style="border-color: #cff4fc;"
+          >
+            "{{ preset_name }}" Portfolio
+          </th>
+          <th
+            class="table-success lead text-center"
+            colspan="2"
+            style="border-color: #d1e7dd;"
+          >
+            Rebalance Needed
+          </th>
+        </tr>
 
-{% block title %} Results {% endblock %}
-{% block content %}
-<div class="container">
-    <div class="title mb-4">
-        <h1>My Rebalancing Guide</h1>
-        <p>Target Preset Portfolio: {{ preset_name }}</p>
-    </div>
-    <div class="resultsTable">
-    <table class="table table-hover" >
-        <thead>
-            <tr>
-                <th style="border-color: transparent;"></th>
-                <th class="table-warning lead text-center" colspan="2" style="border-color: #fff3cd;">Your Portfolio</th>
-                <th class="table-info lead text-center" colspan="2" style="border-color: #cff4fc;">"{{ preset_name }}" Portfolio</th>
-                <th class="table-success lead text-center" colspan="2" style="border-color: #d1e7dd;">Rebalance</th>
-            </tr>
-            
-            <tr>
-                <th></th>
-                <th class="table-warning lead text-center">$</th>
-                <th class="table-warning lead text-center">%</th>
-                <th class="table-info lead text-center">$</th>
-                <th class="table-info lead text-center">%</th>
-                <th class="table-success lead text-center">$</th>
-                <th class="table-success lead text-center">%</th>
-            </tr>
-        </thead>
-    <tbody>
+        <tr>
+          <th></th>
+          <th class="table-warning lead text-center">$</th>
+          <th class="table-warning lead text-center">%</th>
+          <th class="table-info lead text-center">$</th>
+          <th class="table-info lead text-center">%</th>
+          <th class="table-success lead text-center">$</th>
+          <th class="table-success lead text-center">%</th>
+        </tr>
+      </thead>
+      <tbody>
         {% for i in range(data[0]| length) %}
             <tr>
-                {% for j in range(data| length) %}
+            
+            {% for j in range(data| length) %} 
+                {% if data[j][i][0] == '+' %}
+                    <td class="lead" style="color: #228b22; font-weight: 400;">
+                
+                {% elif data[j][i][0] == '-' %}
+                    <td class="lead" style="color: #dc143c; font-weight: 400;">
 
-                    {% if data[j][i][0] == '+' %}
-                    <td class="lead" style="color:#228B22; font-weight: 400;">
-
-                    {% elif data[j][i][0] == '-' %}
-                    <td class="lead" style="color:#DC143C; font-weight: 400;">
-
-                    {% else %}
+                {% else %}
                     <td class="lead">
-                    {% endif %}
 
-                    {{ data[j][i] }}
-                    </td>
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    </tbody>
-    </table>
-    </div>
+                {% endif %} 
 
-    <div class="advice">
-        <ul>
-            {% for i in range(data[0]| length) %}
-                {% if data[5][i][0] != '$' %}
-                <li><b>{% if data[5][i][0] == '+' %} Invest {% else %} Sell {% endif %} {{ data[5][i][1:] }}</b>
-                    in <em>{{ data[0][i] }}</em>
-                </li>
-                {% endif %}
+                {{ data[j][i] }}
+                </td>
+
             {% endfor %}
-        </ul>
-    </div>
+                </tr>
+        
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <!--Doughnut Chart Script-->
 {% include "displayResultsCharts.html" %}
+<div class="container">
+  <div class="row">
 
-    <div class="userResults-container">
-        <div class="grid-item-chart">
-            <div id="currentPortfolioChart">
-                <h2>Current Portfolio</h2>
-                <canvas id="myCurrentChart"></canvas>
-            </div>
+    <div class="col-md-3 justify-content-center">
+        <div class="advice">
+            <h3>To do:</h3>
+          <ul>
+            {% for i in range(data[0]| length) %} {% if data[5][i][0] != '$' %}
+            <li style="line-height: 2;">
+              <b
+                >{% if data[5][i][0] == '+' %} Invest {% else %} Sell {% endif %}
+                {{ data[5][i][1:] }}</b
+              >
+              in <em>{{ data[0][i] }}</em>
+            </li>
+            {% endif %} {% endfor %}
+          </ul>
         </div>
-    </div>
-    <div class="userResults-container">
-        <div class="grid-item-chart">
-            <div id="targetPortfolioChart">
-                <h2>Target Portfolio</h2>
-                <canvas id="myTargetChart"></canvas>
+      </div>
+
+    <div class="col-sm-4 px-5 userResults-container">
+      <div class="grid-item-chart">
+        <div id="currentPortfolioChart">
+            <div class="text-center">
+                <p class="lead">My Portfolio</p>
             </div>
+          <canvas id="myCurrentChart"></canvas>
         </div>
+      </div>
     </div>
 
+    <div class="col-sm-4 px-5 userResults-container">
+      <div class="grid-item-chart">
+        <div id="targetPortfolioChart">
+            <div class="text-center">
+                <p class="lead">"{{ preset_name }}" Portfolio</p>
+            </div>
+          <canvas id="myTargetChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 {% endblock %}
