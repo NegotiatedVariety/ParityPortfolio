@@ -8,12 +8,6 @@
   z-index: 5;
 }
 
-/* .navbar-default .navbar-toggle .icon-bar {
-  background-color: #fff;
-  background: linear-gradient(0.25turn,#2260A0, #4E88C4);
-  height: 3px;
-} */
-
 ul.nav.navbar-nav {
   display: inline-block;
   color: white!important;
@@ -25,11 +19,14 @@ ul.nav.navbar-nav {
   text-align: center;
 }
 
+<<<<<<< HEAD
 /* ul > li {
   display: inline;
 } */
 
 
+=======
+>>>>>>> 0f8bc1248acd499dbb209361ab8700dd60c766ef
 button {
   width: 100%;
   max-width: 12em;
@@ -54,13 +51,6 @@ button:hover {
   background-color: #286090;
   border:1px solid #204d74;
 }
-
-/* @media all and (max-width:30em) {
-  button1 {
-    display:block;
-    margin:0.4em auto;
-  }
-} */
 
 .img-fluid {
   max-width: 100%;
