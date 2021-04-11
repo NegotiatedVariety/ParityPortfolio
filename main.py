@@ -142,6 +142,13 @@ def enter_port():
     # If method = POST
     else:    
         if form.validate_on_submit():
+            # check entered amount is only numbers
+            entered_info = [form.domestic.data, form.international.data, form.bonds.data, form.money_market.data]
+            for amt in entered_info:
+                if amt.isdecimal() is False:
+                        flash("Please only enter numbers.")
+                        return redirect(url_for("enter_port"))
+
             # Create instance of a portfolio info with info entered from form
             data = Portfolio(user_id=session['userID'], domestic=form.domestic.data, 
             international=form.international.data, money_market=form.money_market.data, bonds=form.bonds.data)
