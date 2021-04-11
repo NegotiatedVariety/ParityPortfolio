@@ -74,10 +74,21 @@ class Portfolio(db.Model):
    def __repr__(self):
        return f"User('{self.user_id}', '{self.domestic}', '{self.international}', '{self.money_market}', '{self.bonds}')"
 
+# Creates a SavedPreset table in database with appropriate columns
+class SavedPreset(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    domestic_target = db.Column(db.Integer, nullable=False)
+    international_target = db.Column(db.Integer, nullable=False)
+    bonds_target = db.Column(db.Integer, nullable=False)
+    money_market_target = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f"User('{self.user_id}', '{self.domestic_target}', '{self.international_target}', '{self.money_market_target}', '{self.bonds_target_target}')"
+
 
 with open('presets.json', 'r') as input:
     preset_data = json.load(input)
-
 
 
 @app.route('/')
@@ -188,6 +199,10 @@ def results():
     percent_diff_col = [percent_diff_domestic, percent_diff_international, percent_diff_bonds,
                         percent_diff_money_market]
 
+    # Create copy of target investment column prior to formatting
+    current_investments_chart = [x for x in current_investments_col]
+    target_investments_chart = [x for x in target_investment_col]
+
     # Format output columns
     current_investments_col = ['$' + '{:,.2f}'.format(round(x, 2)) for x in current_investments_col]
     current_percentage_col = ['{:,.2f}'.format(round(x, 2)) + '%' for x in current_percentage_col]
@@ -201,7 +216,15 @@ def results():
     output = [categories_col, current_investments_col, current_percentage_col, target_investment_col,
               target_percentage_col, cash_diff_col, percent_diff_col]
 
-    return render_template('results.html', title='Results', data=output, preset_name=preset_name)
+    # create instance of a portfolio info with info entered from form
+    data = SavedPreset(user_id=session['userID'], domestic_target=target_domestic_investment,
+                       international_target=target_international_investment,
+                       money_market_target=target_money_market_investment, bonds_target=target_bonds_investment)
+    db.session.add(data)
+    db.session.commit()
+
+    return render_template('results.html', title='Results', data=output, preset_name=preset_name, labels=categories_col,
+                           values1=current_investments_chart, values2=target_investments_chart, total=total_investments)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -246,6 +269,7 @@ def userDashboard():
     if 'user' in session:
         user = session['user']
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
+        target_portfolio = SavedPreset.query.filter_by(user_id=session['userID']).order_by(SavedPreset.id.desc()).first()
         if user_portfolio is None:
             flash("Please Update Portfolio data first")
             return redirect(url_for('home'))
@@ -253,7 +277,8 @@ def userDashboard():
         
         labels = ["Domestic", "International", "Bonds", "Money Market"]
         values = [user_portfolio.domestic, user_portfolio.international, user_portfolio.bonds, user_portfolio.money_market]
-        return render_template('userDashboard.html', user = user, labels = labels, values = values)
+        total = [sum(values)]
+        return render_template('userDashboard.html', user = user, labels = labels, values = values, total = total)
     else:
         return NotLoggedIn()
 

@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container">
     <div class="title mb-4">
-        <h1>Your Rebalancing Guide</h1>
+        <h1>My Rebalancing Guide</h1>
         <p>Target Preset Portfolio: {{ preset_name }}</p>
     </div>
     <div class="resultsTable">
@@ -63,4 +63,21 @@
         </ul>
     </div>
 </div>
-{% endblock %}
+<!--Doughnut Chart Script-->
+{% include "displayResultsCharts.html" %}
+<div class="userResults-container">
+    <div class="grid-item-chart">
+        <div id="currentPortfolioChart">
+            <h2>Current Portfolio</h2>
+            <canvas id="myCurrentChart"></canvas>
+        </div>
+    </div>
+</div>
+<div class="userResults-container">
+    <div class="grid-item-chart">
+        <div id="targetPortfolioChart">
+            <h2>Target Portfolio</h2>
+            <canvas id="myTargetChart"></canvas>
+        </div>
+    </div>
+</div>% endblock %}
