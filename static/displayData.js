@@ -21,7 +21,7 @@ let myCurrentChart = new Chart(ctx1, {
 });
 
 // Only create Target Portfolio chart if Preset data was received
-if (chartValues2 != "null")
+if (chartValues2 != null)
 {
     let ctx2 = document.getElementById('myTargetChart').getContext('2d');
     let myTargetChart = new Chart(ctx2, {
@@ -78,7 +78,7 @@ createTable = (elementId, chartValues) => {
 createTable('currentPortfolioTable', chartValues1);
 
 // Only create Target Portfolio table if Preset data was received
-if (chartValues2 != "null")
+if (chartValues2 != null)
 {
     createTable('targetPortfolioTable', chartValues2);
 }
