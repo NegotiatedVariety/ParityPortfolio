@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="grid-item-table">
+            <div class="grid-item-table my-4">
                 <div id="currentPortfolioTable">
                     <h3>My Portfolio Allocation</h3>
                     <ul class="portfolioListHeader">
@@ -39,6 +39,9 @@
                         <li>Target</li>
                     </ul>
                 </div>
+
+                {% if values2 != "null" %}
+ 
                 <div id="targetPortfolioTable">
                     <h3>Target Allocation</h3>
                     <ul class="portfolioListHeader">
@@ -47,7 +50,26 @@
                         <li>Target</li>
                     </ul>
                 </div>
+
+            {% else %}
+            <div class="col-md-10 mt-5 text-center d-flex align-items-center justify-content-center">
+                <div class="portfolioChart">
+                    <div class="">
+                        <p class="lead">Great! <br>Now, let's pick<br>a target portfolio.</p>
+                    </div>
+                    <button 
+                        id="start-btn" 
+                        name="preset-btn" 
+                        onclick="location.href='{{ url_for('presets') }}'"
+                    >
+                        Select Target
+                    </button>
+                </div>
             </div>
+
+            {% endif %}
+            </div>
+ 
 
         {% if values2 != "null" %}
             <div class="grid-item-chart">
@@ -58,7 +80,6 @@
                     <canvas id="myTargetChart"></canvas>
                 </div>
             </div>
-
 
         {% endif %}
 
