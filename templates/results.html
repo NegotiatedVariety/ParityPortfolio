@@ -63,21 +63,25 @@
         </ul>
     </div>
 </div>
+
 <!--Doughnut Chart Script-->
 {% include "displayResultsCharts.html" %}
-<div class="userResults-container">
-    <div class="grid-item-chart">
-        <div id="currentPortfolioChart">
-            <h2>Current Portfolio</h2>
-            <canvas id="myCurrentChart"></canvas>
+
+    <div class="userResults-container">
+        <div class="grid-item-chart">
+            <div id="currentPortfolioChart">
+                <h2>Current Portfolio</h2>
+                <canvas id="myCurrentChart"></canvas>
+            </div>
         </div>
     </div>
-</div>
-<div class="userResults-container">
-    <div class="grid-item-chart">
-        <div id="targetPortfolioChart">
-            <h2>Target Portfolio</h2>
-            <canvas id="myTargetChart"></canvas>
+    <div class="userResults-container">
+        <div class="grid-item-chart">
+            <div id="targetPortfolioChart">
+                <h2>Target Portfolio</h2>
+                <canvas id="myTargetChart"></canvas>
+            </div>
         </div>
     </div>
-</div>% endblock %}
+
+{% endblock %}
