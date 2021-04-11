@@ -138,6 +138,12 @@ button:hover {
   grid-column: 2/5;
 }
 
+/* User Login Styling */
+#loginContent {
+  width: 25%;
+  margin: 0 auto;
+}
+
 /* CSS for Tablets and smaller */
 @media only screen and (max-width: 680px){
   #currentPortfolioChart {
@@ -154,7 +160,13 @@ button:hover {
     padding: 1%;
   }
 
+  #loginContent {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  #loginForm {
+    width: 80vw;
+    margin: 0 auto;
+  }
 }
-
-
-
