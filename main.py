@@ -333,4 +333,4 @@ def NotLoggedIn():
 # run on debug mode to not re-start server after changes
 if __name__ == '__main__':
 
-    app.run(debug = True)
+    app.run()
