@@ -11,6 +11,7 @@ let myChart = new Chart(ctx, {
         }]
     },
     options: {
+        cutout: '75%',
         plugins: {
             legend: {
                 display: false

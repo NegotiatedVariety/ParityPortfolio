@@ -11,6 +11,7 @@ let myCurrentChart = new Chart(ctx1, {
         }]
     },
     options: {
+        cutout: '75%',
         plugins: {
             legend: {
                 display: false
@@ -32,6 +33,7 @@ let myTargetChart = new Chart(ctx2, {
         }]
     },
     options: {
+        cutout: '75%',
         plugins: {
             legend: {
                 display: false
