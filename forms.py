@@ -5,7 +5,7 @@ from wtforms.fields.html5 import EmailField
 
 
 class RegistrationForm(FlaskForm):
-    username =StringField('Username', validators=[DataRequired(), Length(max=20)])
+    username =StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
@@ -14,7 +14,7 @@ class RegistrationForm(FlaskForm):
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[
         InputRequired(), 
-        Length(min=5, max=15, message="Username must be between 5 and 15 characters long.")])
+        Length(min=5, max=20, message="Username must be between 5 and 15 characters long.")])
     password = PasswordField("Password", validators=[InputRequired()]) 
     submit = SubmitField("Login")
 

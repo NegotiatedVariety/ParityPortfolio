@@ -121,6 +121,7 @@ def register():
             return redirect(url_for("register"))
 
         user_query = User.query.filter_by(username=enter_user).first()
+
         # if username already exists
         if user_query:
             flash("Username already exists. Please choose another", "error")
@@ -130,8 +131,13 @@ def register():
         user = User(username=form.username.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('You have successfuly registered. Please login.', 'success')
-        return redirect(url_for('login'))
+
+        user_query = User.query.filter_by(username=enter_user).first()
+        session.clear()
+        session['user'] = user_query.username
+        session['userID'] = user_query.id
+        flash('You have successfuly registered.', 'success')
+        return redirect(url_for('home'))
 
     return render_template('register.html', title='Register', form=form)
 
