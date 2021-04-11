@@ -74,10 +74,21 @@ class Portfolio(db.Model):
    def __repr__(self):
        return f"User('{self.user_id}', '{self.domestic}', '{self.international}', '{self.money_market}', '{self.bonds}')"
 
+# Creates a SavedPreset table in database with appropriate columns
+class SavedPreset(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    domestic_target = db.Column(db.Integer, nullable=False)
+    international_target = db.Column(db.Integer, nullable=False)
+    bonds_target = db.Column(db.Integer, nullable=False)
+    money_market_target = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f"User('{self.user_id}', '{self.domestic_target}', '{self.international_target}', '{self.money_market_target}', '{self.bonds_target_target}')"
+
 
 with open('presets.json', 'r') as input:
     preset_data = json.load(input)
-
 
 
 @app.route('/')
@@ -205,6 +216,13 @@ def results():
     output = [categories_col, current_investments_col, current_percentage_col, target_investment_col,
               target_percentage_col, cash_diff_col, percent_diff_col]
 
+    # create instance of a portfolio info with info entered from form
+    data = SavedPreset(user_id=session['userID'], domestic_target=target_domestic_investment,
+                       international_target=target_international_investment,
+                       money_market_target=target_money_market_investment, bonds_target=target_bonds_investment)
+    db.session.add(data)
+    db.session.commit()
+
     return render_template('results.html', title='Results', data=output, preset_name=preset_name, labels=categories_col,
                            values1=current_investments_chart, values2=target_investments_chart, total=total_investments)
 
@@ -251,6 +269,7 @@ def userDashboard():
     if 'user' in session:
         user = session['user']
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
+        target_portfolio = SavedPreset.query.filter_by(user_id=session['userID']).order_by(SavedPreset.id.desc()).first()
         if user_portfolio is None:
             flash("Please Update Portfolio data first")
             return redirect(url_for('home'))

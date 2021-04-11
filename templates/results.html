@@ -50,18 +50,16 @@
     </tbody>
     </table>
     </div>
-
-    <div class="advice">
-        <ul style="display:list-item; list-style-type:square">
-            {% for i in range(data[0]| length) %}
-                {% if data[5][i][0] != '$' %}
-                <li>You should <b>{% if data[5][i][0] == '+' %} invest {% else %} sell {% endif %} {{ data[5][i][1:] }}</b>
-                    in <b>{{ data[0][i] }}</b></li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </div>
 </div>
+
+<ul id="advice">
+    {% for i in range(data[0]| length) %}
+        {% if data[5][i][0] != '$' %}
+        <li>You should <b>{% if data[5][i][0] == '+' %} invest {% else %} sell {% endif %} {{ data[5][i][1:] }}</b>
+            in <b>{{ data[0][i] }}</b></li>
+        {% endif %}
+    {% endfor %}
+</ul>
 
 <!--Doughnut Chart Script-->
 {% include "displayResultsCharts.html" %}
@@ -82,6 +80,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}
