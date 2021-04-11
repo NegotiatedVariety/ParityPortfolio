@@ -46,7 +46,6 @@ if (chartValues2 != null)
     });
 }
 
-
 createTable = (elementId, chartValues) => {
     let tableDiv = document.getElementById(elementId);
 
@@ -75,10 +74,12 @@ createTable = (elementId, chartValues) => {
     }
 }
 
-createTable('currentPortfolioTable', chartValues1);
-
-// Only create Target Portfolio table if Preset data was received
-if (chartValues2 != null)
+if (showTables == "true")
 {
-    createTable('targetPortfolioTable', chartValues2);
+    createTable('currentPortfolioTable', chartValues1);
+    // Only create Target Portfolio table if Preset data was received
+    if (chartValues2 != null)
+    {
+        createTable('targetPortfolioTable', chartValues2);
+    }
 }
