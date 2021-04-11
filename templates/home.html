@@ -2,61 +2,63 @@
 {{ super() }} {% endblock %} {% block content %}
 
 <div class="container">
-    <div class="row">
-      <div class="jumbotron jumbotron-fluid text-left">
-        <h1>Welcome to Parity Portfolio</h1>
-        <p>
-          A simple utility tool that takes the fuss out of rebalancing; completely
-          agnostic of broker, investment, and platform.
-        </p>
-      </div>
-      <div class="row p-1 mb-3" style="margin: 0 auto; width: 50%; padding: 10px;">
-        <div
-          class="p-3 m-3 col-md-3 text-center rounded"
-          style="background: #e9c46a;"
-        >
-          <img
-            src="../static/images/clipboard.png"
-            class="img-fluid mb-2"
-            style="height: 100px;"
-          />
-          <p style="color: black;">Enter your portfolio</p>
-        </div>
+  <div class="row p-1">
+    <div class="mb-3 title text-center">
+      <h1 class="display-2">Welcome to Parity Portfolio</h1>
+      <p class="lead">
+        The simple helper taking the fuss out of rebalancing
+      </p>
+    </div>
+  </div> 
 
-        <div
-          class="p-3 m-3 col-md-3 text-center rounded"
-          style="background: #f4a261;"
-        >
-          <img
-            src="../static/images/pie-chart.png"
-            class="img-fluid mb-2"
-            style="width: 100%; height: auto;"
-          />
-          <p style="color: black;">Select a target portfolio</p>
-        </div>
+  <div class="row p-1 mb-5 justify-content-center">
+    <div
+      class="p-4 m-3 col-md-3 text-center rounded"
+      style="background: #e9c46a;"
+    >
+      <img
+        src="../static/images/clipboard.png"
+        class="img-fluid mb-2 p-2"
+        style="height: 150px;"
+      />
+      <p class="lead" style="color: black;">1) Enter your portfolio</p>
+    </div>
 
-        <div
-          class="p-3 m-3 col-md-3 text-center rounded"
-          style="background: #2a9d8f;"
-        >
-          <img
-            src="../static/images/balance.png"
-            class="img-fluid mb-2"
-            style="height: 100px;"
-          />
-          <p style="color: black;">See your rebalancing guide!</p>
-        </div>
-      
+    <div
+      class="p-4 m-3 col-md-3 justify-content-center text-center rounded"
+      style="background: #f4a261;"
+    >
+      <img
+        src="../static/images/pie-chart.png"
+        class="img-fluid mb-2 p-2"
+        style="height: 150px;"
+      />
+      <p class="lead" style="color: black;">2) Select a target</p>
+    </div>
+
+    <div
+      class="p-4 m-3 col-md-3 text-center rounded"
+      style="background: #2a9d8f;"
+    >
+      <img
+        src="../static/images/balance.png"
+        class="img-fluid mb-2 p-2"
+        style="height: 150px;"
+      />
+      <p class="lead" style="color: black;">3) Rebalance!</p>
     </div>
   </div>
+      
   <div class="row justify-content-center">
-    <div class="col-md-3">
-      <!-- <a href="{{ url_for('enter_port')}}">Get Started</a> -->
-        <button id="start-btn" name="preset-btn" onclick="location.href='{{ url_for('enter_port')}}'">
-          Get Started
-        </button>
-      </form>
-      </div>
+    <div class="col-md-3 text-center">
+      <button 
+        id="start-btn" 
+        name="preset-btn" 
+        onclick="location.href='{{ url_for('enter_port') }}'"
+      >
+        Get Started
+      </button>
     </div>
+  </div>
 </div>
 {% endblock %}
