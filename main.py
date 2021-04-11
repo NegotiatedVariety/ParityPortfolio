@@ -29,7 +29,7 @@ def create_nav():
 
             return Navbar('Parity Portfolio',
                             View('Home', 'home'),
-                            View('Dashboard', 'userDashboard'),
+                            View('Dashboard', 'user_dashboard'),
                             View('My Portfolio', 'enter_port'),
                             View('Select Preset', 'presets'),
                             View('Logout', 'logout')
@@ -77,6 +77,7 @@ class Portfolio(db.Model):
 # Creates a SavedPreset table in database with appropriate columns
 class SavedPreset(db.Model):
     id = db.Column(db.Integer, primary_key = True)
+    # preset_name = db.Column(db.String(50), unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     domestic_target = db.Column(db.Integer, nullable=False)
     international_target = db.Column(db.Integer, nullable=False)
@@ -140,7 +141,7 @@ def enter_port():
             international=form.international.data, money_market=form.money_market.data, bonds=form.bonds.data)
             db.session.add(data)
             db.session.commit()
-            return redirect(url_for('userDashboard'))
+            return redirect(url_for('user_dashboard'))
 
 
 @app.route('/results', methods=['GET', 'POST'])
@@ -200,8 +201,8 @@ def results():
                         percent_diff_money_market]
 
     # Create copy of target investment column prior to formatting
-    current_investments_chart = [x for x in current_investments_col]
-    target_investments_chart = [x for x in target_investment_col]
+    current_investments = [x for x in current_investments_col]
+    target_investments = [x for x in target_investment_col]
 
     # Format output columns
     current_investments_col = ['$' + '{:,.2f}'.format(round(x, 2)) for x in current_investments_col]
@@ -224,7 +225,7 @@ def results():
     db.session.commit()
 
     return render_template('results.html', title='Results', data=output, preset_name=preset_name, labels=categories_col,
-                           values1=current_investments_chart, values2=target_investments_chart, total=total_investments)
+                           values1=current_investments, values2=target_investments, total=total_investments)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -234,7 +235,7 @@ def login():
         # user already logged in, redirect to dashboard
         if "user" in session:
             flash("Already logged in!", "success")
-            return redirect(url_for("userDashboard"))
+            return redirect(url_for("user_dashboard"))
         # user must login, redirected to login
         return render_template('login.html', form = form)
     
@@ -261,11 +262,11 @@ def login():
             user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
             if user_portfolio is None:
                 return redirect(url_for('home'))
-            return redirect(url_for('userDashboard'))
+            return redirect(url_for('user_dashboard'))
 
 
-@app.route('/userDashboard')
-def userDashboard():
+@app.route('/userdashboard')
+def user_dashboard():
     if 'user' in session:
         user = session['user']
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
@@ -274,11 +275,18 @@ def userDashboard():
             flash("Please Update Portfolio data first")
             return redirect(url_for('home'))
 
-        
+        if target_portfolio is None:
+            target_values = None
+        else:
+            target_values = [target_portfolio.domestic_target, target_portfolio.international_target,
+                             target_portfolio.bonds_target, target_portfolio.money_market_target]
+
         labels = ["Domestic", "International", "Bonds", "Money Market"]
-        values = [user_portfolio.domestic, user_portfolio.international, user_portfolio.bonds, user_portfolio.money_market]
-        total = [sum(values)]
-        return render_template('userDashboard.html', user = user, labels = labels, values = values, total = total)
+        current_values = [user_portfolio.domestic, user_portfolio.international, user_portfolio.bonds,
+                          user_portfolio.money_market]
+        total = sum(target_values)
+        return render_template('userdashboard.html', user=user, labels=labels, values1=current_values,
+                           values2=target_values, total=total)
     else:
         return NotLoggedIn()
 

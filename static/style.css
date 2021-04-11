@@ -78,7 +78,7 @@ button:hover {
 
 }
 
-#currentPortfolioChart {
+#portfolioChart {
   width: 19vw;
   padding: 1%;
   border: 1px solid gray;
@@ -104,11 +104,11 @@ button:hover {
   font-size: 1.2rem;
   margin-bottom: -1px;
 }
-.currentPortfolioListHeader {
+.portfolioListHeader {
   margin-left: 10px;
   font-weight: bolder;
 }
-.currentPortfolioListHeader > li {
+.portfolioListHeader > li {
   display: table-cell;
   width: 50%;
 }
@@ -122,7 +122,7 @@ button:hover {
   text-align: center;
   font-size: 1.3rem;
 }
-#currentPortfolioChart > h2 {
+#portfolioChart > h2 {
   padding: 0;
 }
 #userDash > h2 {
@@ -152,12 +152,12 @@ button:hover {
 
 /* CSS for Tablets and smaller */
 @media only screen and (max-width: 680px){
-  #currentPortfolioChart {
+  #portfolioChart {
     width: auto;
     padding: 1%;
   }
 
-  #currentPortfolioTable {
+  #portfolioTable {
     width: auto;
     padding: 1%;
   }
