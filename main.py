@@ -18,7 +18,7 @@ migrate = Migrate(app, db)
 
 Bootstrap(app)
 nav = Nav(app)
-logo = img(src='static/images/logo.png', style='position: absolute; top: -20px; right: 15px;')
+logo = img(src='static/images/logo.png', style='position: absolute; top: 5px; right: 15px; height: 50px;')
 
 nav.register_element('top', 'the_nav')
 
