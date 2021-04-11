@@ -1,3 +1,4 @@
+{% from "formHelpers.html" import render_formfield %}
 {% extends "index.html" %}
 {% block title %} Register {% endblock %}
 {% block head %}
@@ -5,50 +6,49 @@
 {% endblock %}
 
 {% block content %}
+<div id="loginContent">
   <h1>Register</h1>
 
   <form method="POST" action="">
     {{ form.hidden_tag() }}
         <div class="mb-3">
-            {{ form.username.label }}
-
             {% if form.username.errors %}
                 {{ form.username(class="is-invalid") }}
                 <div class="invalid-feedback">
                         <span>{{ form.username.errors }}</span>
                 </div>
             {% else %}
-                {{ form.username }}
+                <!-- {{ form.username }} -->
+                {{ render_formfield(form.username) }}
             {% endif %}
         </div>
         <div class="mb-3">
-            {{ form.password.label }}
-
             {% if form.password.errors %}
                 {{ form.password(class="is-invalid") }}
                 <div class="invalid-feedback">
                         <span>{{ form.password.errors }}</span>
                 </div>
             {% else %}
-                {{ form.password }}
+                <!-- {{ form.password }} -->
+                {{ render_formfield(form.password) }}
+
             {% endif %}
         </div>
         <div class="mb-3">
-            {{ form.confirm.label }}
-
             {% if form.confirm.errors %}
                 {{ form.confirm(class="is-invalid") }}
                 <div class="invalid-feedback">
                         <span>{{ form.confirm.errors }}</span>
                 </div>
             {% else %}
-                {{ form.confirm }}
+                <!-- {{ form.confirm }} -->
+                {{ render_formfield(form.confirm) }}
+
             {% endif %}
         </div>
-
-        </fieldset>
         <div>
-            {{ form.submit(class="btn btn-outline-info") }}
+            {{ form.submit(class="btn btn-info") }}
         </div>
     </form>
+</div>
 {% endblock %}

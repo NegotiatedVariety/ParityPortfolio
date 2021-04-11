@@ -4,10 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_nav import Nav
 from flask_nav.elements import Navbar, View
 from flask_bootstrap import Bootstrap
+from dominate.tags import img
 import json
 import forms
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 app.config['SECRET_KEY'] = 'QUWU7Ax94jCsknrT'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -16,6 +17,7 @@ db = SQLAlchemy(app)
 
 Bootstrap(app)
 nav = Nav(app)
+logo = img(src='static/images/logo.png', style='position: absolute; top: -20px; right: 15px;')
 
 nav.register_element('top', 'the_nav')
 
@@ -27,17 +29,17 @@ def create_nav():
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
         if user_portfolio is not None:
 
-            return Navbar('Parity Portfolio',
+            return Navbar(logo,
                             View('Home', 'home'),
                             View('Dashboard', 'userDashboard'),
                             View('My Portfolio', 'enter_port'),
                             View('Select Preset', 'presets'),
-                            View('Logout', 'logout')
+                            View('Logout', 'logout'),
             )
 
         else:
 
-            return Navbar('Parity Portfolio',
+            return Navbar(logo,
                           View('Home', 'home'),
                           View('My Portfolio', 'enter_port'),
                           View('Logout', 'logout')
@@ -45,7 +47,7 @@ def create_nav():
             )
 
     else:
-        return Navbar('Parity Portfolio',
+        return Navbar(logo,
                         View('Home', 'home'),
                         View('Register', 'register'),
                         View('Login', 'login')
