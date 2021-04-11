@@ -32,7 +32,7 @@ createTable = () => {
 
         
         let assetValue = document.createElement('li');
-        assetValue.innerText = '$' + chartValues[i];
+        assetValue.innerText = '$' + chartValues[i].toFixed(2);
 
         tableDiv.appendChild(assetList);
 
