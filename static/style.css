@@ -87,15 +87,6 @@ button:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#targetPortfolioChart {
-  width: 19vw;
-  padding: 1%;
-  border: 1px solid gray;
-  border-radius: 2rem;
-  margin: 0 auto;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
 .currentPortfolioList {
   border-radius: 0.25rem;
   padding-left: 2%;
@@ -118,10 +109,6 @@ button:hover {
   width: 50%;
 }
 
-#currentPortfolioDetails {
-  text-align: center;
-  font-size: 1.3rem;
-}
 #portfolioChart > h2 {
   padding: 0;
 }

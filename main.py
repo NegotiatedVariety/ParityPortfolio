@@ -276,7 +276,7 @@ def user_dashboard():
             return redirect(url_for('home'))
 
         if target_portfolio is None:
-            target_values = None
+            target_values = "null"
         else:
             target_values = [target_portfolio.domestic_target, target_portfolio.international_target,
                              target_portfolio.bonds_target, target_portfolio.money_market_target]
@@ -284,7 +284,7 @@ def user_dashboard():
         labels = ["Domestic", "International", "Bonds", "Money Market"]
         current_values = [user_portfolio.domestic, user_portfolio.international, user_portfolio.bonds,
                           user_portfolio.money_market]
-        total = sum(target_values)
+        total = sum(current_values)
         return render_template('userdashboard.html', user=user, labels=labels, values1=current_values,
                                values2=target_values, total=total)
     else:

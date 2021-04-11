@@ -27,7 +27,7 @@
                     <canvas id="myCurrentChart"></canvas>
                 </div>
             </div>
-            
+
             <div class="grid-item-table">
                 <div id="currentPortfolioTable">
                     <h2>Slices</h2>
@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-        {% if values2 is not none %}
+        {% if values2 != "null" %}
             <div class="grid-item-chart">
                 <div id="portfolioChart">
                     <div class="text-center">
@@ -62,6 +62,6 @@
         {% endif %}
 
     </div>
-
 </div>
+
 {% endblock %}
