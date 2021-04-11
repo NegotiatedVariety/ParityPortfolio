@@ -2,11 +2,13 @@
 
 {% block content %}
 
+<div class="container">
     <!--Doughnut Chart Script-->
     {% include "displayDashboardCharts.html" %}
     
     <div id="userDash">
-        <h1>Welcome {{ user }}</h1>
+        <h1>Welcome, {{ user }}!</h1>
+        <p>Here's where you stand</p>
         <div id="currentPortfolioDetails" class="container">
             <div class="row">
                 <div id="currentPortfolioValue" class="col-sm">
@@ -26,7 +28,9 @@
         <div class="userDash-container">
             <div class="grid-item-chart">
                 <div id="currentPortfolioChart">
-                    <h2>Current Portfolio</h2>
+                    <div class="text-center">
+                        <p class="lead">My Portfolio</p>
+                    </div>
                     <canvas id="myChart"></canvas>
                 </div>
             </div>
@@ -44,4 +48,6 @@
         </div>
 
     </div>
+
+</div>
 {% endblock %}

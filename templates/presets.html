@@ -1,45 +1,48 @@
 {% extends "index.html" %} {% block title %} Preset {% endblock %} {% block head
 %} {{ super() }} {% endblock %} {% block content %}
 <div class="container">
-  <div class="title" style="margin-bottom: 30px;">
+  <div class="title mb-4" style="margin-bottom: 30px;">
     <h1>Pick a preset</h1>
     <p>Your preset will be your template to rebalance against</p>
   </div>
   <div class="row">
-    <div class="col-md-4 p-4 d-flex align-items-stretch">
-      <div class="card p-3 border" style="background: #dee2e6;">
-        <div style="padding: 15px;">
-          <table class="table" style="border: none;">
+    <div class="col-md-3 d-flex align-items-stretch">
+      <div class="card p-3 border rounded-3 bg-light">
+        <div class="card-header lead text-center bg-light">
+          Conservative 20%
+        </div>
+        <div class="px-3">
+          <table class="table">
             <thead>
               <tr>
-                <td>
+                <td style="border-bottom: 1px solid black">
                   <div>14%</div>
                 </td>
-                <th>
+                <th style="border-bottom: 1px solid black">
                   <div>Domestic Stock</div>
                 </th>
               </tr>
               <tr>
-                <td>
+                <td style="border-bottom: 1px solid black">
                   <div>6%</div>
                 </td>
-                <th>
+                <th style="border-bottom: 1px solid black">
                   <div>International Stock</div>
                 </th>
               </tr>
               <tr>
-                <td>
+                <td style="border-bottom: 1px solid black">
                   <div>50%</div>
                 </td>
-                <th>
+                <th style="border-bottom: 1px solid black">
                   <div>Bonds</div>
                 </th>
               </tr>
               <tr>
-                <td>
+                <td style="border-bottom: 1px solid black">
                   <div>30%</div>
                 </td>
-                <th>
+                <th style="border-bottom: 1px solid black">
                   <div>Money Market</div>
                 </th>
               </tr>
@@ -47,7 +50,6 @@
           </table>
         </div>
         <div class="card-body text-center">
-          <h5 class="card-title">Conservative</h5>
           <p class="card-text">
             A steady portfolio with a less bumpy ride and reduced potential for
              long term returns
@@ -56,7 +58,7 @@
           <div class="text-center">
             <form action="/results" method="Post">
               <button name="preset-btn" type="submit" value="0">
-                Select Conservative
+                Select
               </button>
             </form>
           </div>
@@ -64,40 +66,43 @@
       </div>
     </div>
 
-    <div class="col-md-4 p-4 d-flex align-items-stretch">
-      <div class="card p-3 border" style="background: #dee2e6;">
-        <div style="padding: 15px;">
-          <table class="table" style="border: none;">
+    <div class="col-md-3 mx-5 d-flex align-items-stretch">
+      <div class="card p-3 border rounded-3 bg-light">
+        <div class="card-header lead text-center bg-light">
+          Balanced 50%
+        </div>
+        <div class="px-3">
+          <table class="table">
             <thead>
               <tr>
-                <td>
+                <td style="border-bottom: 1px solid black">
                   <div>35%</div>
                 </td>
-                <th>
+                <th style="border-bottom: 1px solid black">
                   <div>Domestic Stock</div>
                 </th>
               </tr>
               <tr>
-                <td>
+                <td style="border-bottom: 1px solid black">
                   <div>15%</div>
                 </td>
-                <th>
+                <th style="border-bottom: 1px solid black">
                   <div>International Stock</div>
                 </th>
               </tr>
               <tr>
-                <td>
+                <td style="border-bottom: 1px solid black">
                   <div>40%</div>
                 </td>
-                <th>
+                <th style="border-bottom: 1px solid black">
                   <div>Bonds</div>
                 </th>
               </tr>
               <tr>
-                <td>
+                <td style="border-bottom: 1px solid black">
                   <div>10%</div>
                 </td>
-                <th>
+                <th style="border-bottom: 1px solid black">
                   <div>Money Market</div>
                 </th>
               </tr>
@@ -105,7 +110,6 @@
           </table>
         </div>
         <div class="card-body text-center">
-          <h5 class="card-title">Balanced</h5>
           <p class="card-text">
             A middle of the road portfolio with some volatility, and moderate
             long term returns
@@ -114,7 +118,7 @@
           <div class="text-center">
             <form action="/results" method="Post">
               <button name="preset-btn" type="submit" value="1">
-                Select Balanced
+                Select
               </button>
             </form>
           </div>
@@ -122,40 +126,43 @@
       </div>
     </div>
 
-    <div class="col-md-4 p-4 d-flex align-items-stretch gx-5">
-      <div class="card p-3 border" style="background: #dee2e6;">
-        <div style="padding: 15px;">
+    <div class="col-md-3 d-flex align-items-stretch gx-5">
+      <div class="card p-3 border rounded-3 bg-light">
+        <div class="card-header lead text-center bg-light">
+          Aggressive 85%
+        </div>
+        <div class="px-3">
           <table class="table">
             <thead>
               <tr>
-                <td>
+                <td style="border-bottom: 1px solid black">
                   <div>60%</div>
                 </td>
-                <th>
+                <th style="border-bottom: 1px solid black">
                   <div>Domestic Stock</div>
                 </th>
               </tr>
               <tr>
-                <td>
+                <td style="border-bottom: 1px solid black">
                   <div>25%</div>
                 </td>
-                <th>
+                <th style="border-bottom: 1px solid black">
                   <div>International Stock</div>
                 </th>
               </tr>
               <tr>
-                <td>
+                <td style="border-bottom: 1px solid black">
                   <div>15%</div>
                 </td>
-                <th>
+                <th style="border-bottom: 1px solid black">
                   <div>Bonds</div>
                 </th>
               </tr>
               <tr>
-                <td>
+                <td style="border-bottom: 1px solid black">
                   <div>0%</div>
                 </td>
-                <th>
+                <th style="border-bottom: 1px solid black">
                   <div>Money Market</div>
                 </th>
               </tr>
@@ -163,7 +170,6 @@
           </table>
         </div>
         <div class="card-body text-center">
-          <h5 class="card-title">Aggressive</h5>
           <p class="card-text">
             A portfolio built for maximizing long term returns with 
             significant fluctuations in value
@@ -172,7 +178,7 @@
           <div class="text-center">
             <form action="/results" method="Post">
               <button name="preset-btn" type="submit" value="2">
-                Select Aggressive
+                Select
               </button>
             </form>
           </div>
