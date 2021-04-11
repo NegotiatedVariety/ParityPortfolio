@@ -206,7 +206,7 @@ def results():
               target_percentage_col, cash_diff_col, percent_diff_col]
 
     return render_template('results.html', title='Results', data=output, preset_name=preset_name, labels=categories_col,
-                           values=current_investments_chart, values2=target_investments_chart)
+                           values1=current_investments_chart, values2=target_investments_chart, total=total_investments)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():

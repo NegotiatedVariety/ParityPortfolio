@@ -95,6 +95,18 @@ button:hover {
   text-align: center;
 }
 
+#targetPortfolioChart {
+  width: 19vw;
+  padding: 1%;
+  border: 1px solid gray;
+  border-radius: 2rem;
+  margin: 0 auto;
+}
+
+#targetPortfolioChart > h2 {
+  text-align: center;
+}
+
 .currentPortfolioList {
   border-radius: 0.25rem;
   padding-left: 2%;
@@ -129,6 +141,12 @@ button:hover {
   font-size: 2rem;
 }
 .userDash-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-gap: 1%;
+}
+
+.userResults-container {
   display: grid;
   grid-template-columns: auto auto auto auto auto;
   grid-gap: 1%;

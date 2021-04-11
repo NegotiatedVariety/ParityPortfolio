@@ -64,23 +64,24 @@
 </div>
 
 <!--Doughnut Chart Script-->
-{% include "displayCurrentData.html" %}
-<div id="currentPortfolioChart">
-    <h2>Current Portfolio</h2>
-    <canvas id="myChart"></canvas>
-
-    <div id="currentPortfolioTable">
+{% include "displayResultsCharts.html" %}
+<div class="userResults-container">
+    <div class="grid-item-chart">
+        <div id="currentPortfolioChart">
+            <h2>Current Portfolio</h2>
+            <canvas id="myCurrentChart"></canvas>
+        </div>
     </div>
 </div>
 
-<!--Doughnut Chart Script-->
-{% include "displayTargetData.html" %}
-<div id="targetPortfolioChart">
-    <h2>Target Portfolio</h2>
-    <canvas id="myChart2"></canvas>
-
-    <div id="targetPortfolioTable">
+<div class="userResults-container">
+    <div class="grid-item-chart">
+        <div id="targetPortfolioChart">
+            <h2>Target Portfolio</h2>
+            <canvas id="myTargetChart"></canvas>
+        </div>
     </div>
 </div>
+
 
 {% endblock %}
