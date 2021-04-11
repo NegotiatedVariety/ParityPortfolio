@@ -3,20 +3,28 @@
 {% block title %} Results {% endblock %}
 {% block content %}
 <div class="container">
-    <h1>Your Rebalancing Guide</h1>
-    <p>Target Preset Portfolio: {{ preset_name }}</p>
-
+    <div class="title mb-4">
+        <h1>Your Rebalancing Guide</h1>
+        <p>Target Preset Portfolio: {{ preset_name }}</p>
+    </div>
     <div class="resultsTable">
-    <table class="table table-secondary table-striped" style ="width:75%; white-space:nowrap;">
+    <table class="table table-secondary" style ="width:75%; white-space:nowrap;">
         <thead>
             <tr>
                 <th></th>
-                <th>Your Portfolio ($)</th>
-                <th>Your Portfolio (%)</th>
-                <th>Target ($)</th>
-                <th>Target (%)</th>
-                <th>Rebalance ($)</th>
-                <th>Rebalance (%)</th>
+                <th colspan="2">Your Portfolio</th>
+                <th colspan="2">Target Preset</th>
+                <th colspan="2">Rebalance</th>
+            </tr>
+            
+            <tr>
+                <th></th>
+                <th>($)</th>
+                <th>(%)</th>
+                <th>($)</th>
+                <th>(%)</th>
+                <th>($)</th>
+                <th>(%)</th>
             </tr>
         </thead>
     <tbody>
