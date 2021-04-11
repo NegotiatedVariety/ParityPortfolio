@@ -89,12 +89,11 @@ def home():
 def presets():
 
     if 'user' not in session:
-        flash("You must be logged in to access that page!")
-        return redirect(url_for('login'))
+        return NotLoggedIn()
     else:
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
         if user_portfolio is None:
-            flash("Please Update your Portfolio data first")
+            flash("Please Update Portfolio data first")
             return redirect(url_for('enter_port'))
         return render_template('presets.html', title='Base Data', preset_data = preset_data)
 
@@ -122,8 +121,7 @@ def enter_port():
         if 'user' in session:
             return render_template('userportfolio.html', title='Portfolio', form=form)
         else:
-            flash("You must be logged in to access that page!")
-            return redirect(url_for('login'))
+            return NotLoggedIn()
     else:    
         if form.validate_on_submit():
             # create instance of a portfolio info with info entered from form
@@ -182,10 +180,10 @@ def results():
     # Create columns
     categories_col = ["Domestic Stock", "International Stock", "Bonds", "Money Market"]
     current_percentage_col = [percent_domestic, percent_international, percent_bonds, percent_money_market]
-    target_percentage_col = [target_domestic_percent, target_international_percent, target_bonds_percent,
-                             target_money_market_percent]
     target_investment_col = [target_domestic_investment, target_international_investment, target_bonds_investment,
                              target_money_market_investment]
+    target_percentage_col = [target_domestic_percent, target_international_percent, target_bonds_percent,
+                             target_money_market_percent]
     cash_diff_col = [cash_diff_domestic, cash_diff_international, cash_diff_bonds, cash_diff_money_market]
     percent_diff_col = [percent_diff_domestic, percent_diff_international, percent_diff_bonds,
                         percent_diff_money_market]
@@ -193,15 +191,15 @@ def results():
     # Format output columns
     current_investments_col = ['$' + '{:,.2f}'.format(round(x, 2)) for x in current_investments_col]
     current_percentage_col = ['{:,.2f}'.format(round(x, 2)) + '%' for x in current_percentage_col]
-    target_percentage_col = ['{:,.2f}'.format(round(x, 2)) + '%' for x in target_percentage_col]
     target_investment_col = ['$' + '{:,.2f}'.format(round(x, 2)) for x in target_investment_col]
+    target_percentage_col = ['{:,.2f}'.format(round(x, 2)) + '%' for x in target_percentage_col]
     cash_diff_col = ['+$' + '{:,.2f}'.format(round(x, 2)) if x > 0 else '$' + '{:,.2f}'.format(
         round(x, 2)) if x == 0 else '-$' + '{:,.2f}'.format(round(abs(x), 2)) for x in cash_diff_col]
     percent_diff_col = ['+' + '{:,.2f}'.format(round(x, 2)) + '%' if x > 0 else '{:,.2f}'.format(
         round(x, 2)) + '%' if x == 0 else '-' + '{:,.2f}'.format(round(abs(x), 2)) + '%' for x in percent_diff_col]
 
-    output = [categories_col, current_investments_col, current_percentage_col, target_percentage_col,
-              target_investment_col, cash_diff_col, percent_diff_col]
+    output = [categories_col, current_investments_col, current_percentage_col, target_investment_col,
+              target_percentage_col, cash_diff_col, percent_diff_col]
 
     return render_template('results.html', title='Results', data=output, preset_name=preset_name)
 
@@ -247,18 +245,15 @@ def login():
 def userDashboard():
     if 'user' in session:
         user = session['user']
-        userID = session['userID']
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
         if user_portfolio is None:
-            flash("Please Update your Portfolio data first")
+            flash("Please Update Portfolio data first")
             return redirect(url_for('home'))
 
         
         labels = ["Domestic", "International", "Bonds", "Money Market"]
         values = [user_portfolio.domestic, user_portfolio.international, user_portfolio.bonds, user_portfolio.money_market]
-        colors = ['yellow', 'blue', 'red', 'green']
-        title = "Current Portfolio"
-        return render_template('userDashboard.html', user = user, labels = labels, values = values, colors = colors, title = title)
+        return render_template('userDashboard.html', user = user, labels = labels, values = values)
     else:
         return NotLoggedIn()
 
@@ -273,7 +268,7 @@ def logout():
 
 def NotLoggedIn():
     flash("Please login or register")
-    return redirect(url_for('home'))
+    return redirect(url_for('login'))
 
 # run on debug mode to not re-start server after changes
 if __name__ == '__main__':

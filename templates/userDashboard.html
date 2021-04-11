@@ -3,25 +3,16 @@
 {% block content %}
 
     <!--Doughnut Chart Script-->
-    {% include "doughnutChartHelper.html" %}
+    {% include "displayData.html" %}
     
 
-    <h1>Welcome {{ user }}</h1>
+    <h1>Welcome, {{ user }}</h1>
     <div id="currentPortfolioChart">
+        <h2>Current Portfolio</h2>
         <canvas id="myChart"></canvas>
     
-        <table id="currentPortfolioTable">
-            <tr>
-                {% for label in labels %}
-                    <th>{{ label }}</th>
-                {% endfor %}
-            </tr>
-            <tr>
-                {% for value in values %}
-                    <td>{{ value }}</td>
-                {% endfor %}
-            </tr>
-        </table>
+        <div id="currentPortfolioTable">
+        </div>
     </div>
 
 {% endblock %}

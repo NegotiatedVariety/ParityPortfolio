@@ -79,4 +79,28 @@ button:hover {
 
 #currentPortfolioChart {
   width: 25%;
+  padding: 1%;
+}
+
+#currentPortfolioChart > h2 {
+  text-align: center;
+  font-size: 2vw;
+}
+
+#currentPortfolioTable {
+  width: 75%;
+  margin: 0 auto;
+  padding: 5% 0;
+}
+.currentPortfolioList {
+  border-radius: 0.25rem;
+  padding-left: 2%;
+  display: table;
+  list-style-type: none;
+  font-size: 1.2vw;
+}
+
+.currentPortfolioList > li {
+  display: table-cell;
+  width: 100%;
 }
