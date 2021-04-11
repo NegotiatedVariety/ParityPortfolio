@@ -9,8 +9,8 @@ pip install -r requirements.txt
 # Setup SQLAlchemy & SQLite
 Navigate to project folder <br/>
 In Python interpreter: from main import db <br/>
-Get User table: from main import User <br/>
-Get Portfolio table: from main import Portfolio <br/>
+Setup User table: from main import User <br/>
+Setup Portfolio table: from main import Portfolio <br/>
 
 # Run App
 Navigate to root of project folder <br/>
