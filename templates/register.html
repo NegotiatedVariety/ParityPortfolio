@@ -6,18 +6,11 @@
 {% endblock %}
 
 {% block content %}
+    {% include "flashMessages.html" %}
 <div id="loginContent">
+
   <h1>Register</h1>
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        <ul class=flashes>
-            {% for category, message in messages %}
-                <li class="{{ category }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
 
   <form method="POST" action="">
     {{ form.hidden_tag() }}
