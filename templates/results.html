@@ -4,27 +4,27 @@
 {% block content %}
 <div class="container">
     <div class="title mb-4">
-        <h1>Your Rebalancing Guide</h1>
+        <h1>My Rebalancing Guide</h1>
         <p>Target Preset Portfolio: {{ preset_name }}</p>
     </div>
     <div class="resultsTable">
-    <table class="table table-secondary" style ="width:75%; white-space:nowrap;">
+    <table class="table table-hover" >
         <thead>
             <tr>
-                <th></th>
-                <th colspan="2">Your Portfolio</th>
-                <th colspan="2">Target Preset</th>
-                <th colspan="2">Rebalance</th>
+                <th style="border-color: transparent;"></th>
+                <th class="table-warning lead text-center" colspan="2" style="border-color: #fff3cd;">Your Portfolio</th>
+                <th class="table-info lead text-center" colspan="2" style="border-color: #cff4fc;">"{{ preset_name }}" Portfolio</th>
+                <th class="table-success lead text-center" colspan="2" style="border-color: #d1e7dd;">Rebalance</th>
             </tr>
             
             <tr>
                 <th></th>
-                <th>($)</th>
-                <th>(%)</th>
-                <th>($)</th>
-                <th>(%)</th>
-                <th>($)</th>
-                <th>(%)</th>
+                <th class="table-warning lead text-center">$</th>
+                <th class="table-warning lead text-center">%</th>
+                <th class="table-info lead text-center">$</th>
+                <th class="table-info lead text-center">%</th>
+                <th class="table-success lead text-center">$</th>
+                <th class="table-success lead text-center">%</th>
             </tr>
         </thead>
     <tbody>
@@ -33,13 +33,13 @@
                 {% for j in range(data| length) %}
 
                     {% if data[j][i][0] == '+' %}
-                    <td style="color:#228B22;">
+                    <td class="lead" style="color:#228B22; font-weight: 400;">
 
                     {% elif data[j][i][0] == '-' %}
-                    <td style="color:#DC143C;">
+                    <td class="lead" style="color:#DC143C; font-weight: 400;">
 
                     {% else %}
-                    <td>
+                    <td class="lead">
                     {% endif %}
 
                     {{ data[j][i] }}
@@ -50,35 +50,38 @@
     </tbody>
     </table>
     </div>
-</div>
 
-<ul id="advice">
-    {% for i in range(data[0]| length) %}
-        {% if data[5][i][0] != '$' %}
-        <li>You should <b>{% if data[5][i][0] == '+' %} invest {% else %} sell {% endif %} {{ data[5][i][1:] }}</b>
-            in <b>{{ data[0][i] }}</b></li>
-        {% endif %}
-    {% endfor %}
-</ul>
+    <div class="advice">
+        <ul>
+            {% for i in range(data[0]| length) %}
+                {% if data[5][i][0] != '$' %}
+                <li><b>{% if data[5][i][0] == '+' %} Invest {% else %} Sell {% endif %} {{ data[5][i][1:] }}</b>
+                    in <em>{{ data[0][i] }}</em>
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 
 <!--Doughnut Chart Script-->
 {% include "displayResultsCharts.html" %}
-<div class="userResults-container">
-    <div class="grid-item-chart">
-        <div id="currentPortfolioChart">
-            <h2>Current Portfolio</h2>
-            <canvas id="myCurrentChart"></canvas>
-        </div>
-    </div>
-</div>
 
-<div class="userResults-container">
-    <div class="grid-item-chart">
-        <div id="targetPortfolioChart">
-            <h2>Target Portfolio</h2>
-            <canvas id="myTargetChart"></canvas>
+    <div class="userResults-container">
+        <div class="grid-item-chart">
+            <div id="currentPortfolioChart">
+                <h2>Current Portfolio</h2>
+                <canvas id="myCurrentChart"></canvas>
+            </div>
         </div>
     </div>
-</div>
+    <div class="userResults-container">
+        <div class="grid-item-chart">
+            <div id="targetPortfolioChart">
+                <h2>Target Portfolio</h2>
+                <canvas id="myTargetChart"></canvas>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
