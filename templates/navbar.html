@@ -1,3 +1,10 @@
+
+
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+{% endblock %}
+
 {% block navbar %}
+
     {{ nav.the_nav.render() }}
 {% endblock %}

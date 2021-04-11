@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %} Home {% endblock %} {% block head %}
+{% extends "index.html" %} {% block title %} Home {% endblock %} {% block head %}
 {{ super() }} {% endblock %} {% block content %}
 
 <div class="container">
@@ -51,7 +51,11 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-md-3">
-      <a href="{{ url_for('enter_port')}}">Get Started</a>
+      <!-- <a href="{{ url_for('enter_port')}}">Get Started</a> -->
+        <button name="preset-btn" onclick="location.href='{{ url_for('enter_port')}}'">
+          Get Started
+        </button>
+      </form>
     </div>
 </div>
 {% endblock %}

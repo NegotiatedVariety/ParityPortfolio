@@ -20,8 +20,12 @@
 </head>
 
 <body>
+    {% extends "bootstrap/base.html" %}
+    
+    {% block navbar %}
+        {{ nav.the_nav.render() }}
+    {% endblock %}
 
-     {% include "navbar.html" %}
      
        <div>
            {% with messages = get_flashed_messages(with_categories=true) %}
