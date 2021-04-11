@@ -114,8 +114,13 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         enter_user = form.username.data
-        user_query = User.query.filter_by(username=enter_user).first()
 
+        # validate username length
+        if len(enter_user) < 5 or len(enter_user) > 20:
+            flash("Username must be between 5 and 20 characters!", "error")
+            return redirect(url_for("register"))
+
+        user_query = User.query.filter_by(username=enter_user).first()
         # if username already exists
         if user_query:
             flash("Username already exists. Please choose another", "error")
