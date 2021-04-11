@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="container">
+    <!--Doughnut Chart Script-->
+    {% include "displaydata.html" %}
+    
+    <div id="userDash">
+        <h1>Welcome, {{ user }}!</h1>
+        <p>Here's where you stand</p>
+        <div id="currentPortfolioDetails" class="container">
+            <div class="row">
+                <div id="currentPortfolioValue" class="col-sm">
+                        <h4>Current Value</h4>
+                        <p id="currentValue"></p>
+                </div>
+
+            </div>
+        </div>
+        <div class="userDash-container">
+            <div class="grid-item-chart">
+                <div id="portfolioChart">
+                    <div class="text-center">
+                        <p class="lead">My Portfolio</p>
+                    </div>
+                    <canvas id="myCurrentChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="grid-item-table">
+                <div id="currentPortfolioTable">
+                    <h2>Slices</h2>
+                    <ul class="portfolioListHeader">
+                        <li>Name</li>
+                        <li>Value</li>
+                        <li>Target</li>
+                    </ul>
+                </div>
+            </div>
+
+        {% if values2 is not none %}
+            <div class="grid-item-chart">
+                <div id="portfolioChart">
+                    <div class="text-center">
+                        <p class="lead">My Target Portfolio</p>
+                    </div>
+                    <canvas id="myTargetChart"></canvas>
+                </div>
+            </div>
+
+            <div class="grid-item-table">
+                <div id="targetPortfolioTable">
+                    <h2>Slices</h2>
+                    <ul class="portfolioListHeader">
+                        <li>Name</li>
+                        <li>Value</li>
+                        <li>Target</li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+
+</div>
+{% endblock %}

@@ -286,7 +286,7 @@ def user_dashboard():
                           user_portfolio.money_market]
         total = sum(target_values)
         return render_template('userdashboard.html', user=user, labels=labels, values1=current_values,
-                           values2=target_values, total=total)
+                               values2=target_values, total=total)
     else:
         return NotLoggedIn()
 
