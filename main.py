@@ -256,7 +256,8 @@ def userDashboard():
         
         labels = ["Domestic", "International", "Bonds", "Money Market"]
         values = [user_portfolio.domestic, user_portfolio.international, user_portfolio.bonds, user_portfolio.money_market]
-        return render_template('userDashboard.html', user = user, labels = labels, values = values)
+        total = [sum(values)]
+        return render_template('userDashboard.html', user = user, labels = labels, values = values, total = total)
     else:
         return NotLoggedIn()
 

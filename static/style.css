@@ -76,30 +76,81 @@ button:hover {
   height: 300px;
 }
 
+#userDash {
+  padding: 2%;
+}
+
 #currentPortfolioChart {
-  width: 25%;
+  width: 19vw;
   padding: 1%;
+  border: 1px solid gray;
+  border-radius: 2rem;
+  margin: 0 auto;
 }
 
 #currentPortfolioChart > h2 {
   text-align: center;
-  font-size: 2vw;
 }
 
-#currentPortfolioTable {
-  width: 75%;
-  margin: 0 auto;
-  padding: 5% 0;
-}
 .currentPortfolioList {
   border-radius: 0.25rem;
   padding-left: 2%;
   display: table;
   list-style-type: none;
-  font-size: 1.2vw;
+  font-size: 1.2rem;
+  margin-bottom: -1px;
+}
+.currentPortfolioListHeader {
+  margin-left: 10px;
+  font-weight: bolder;
+}
+.currentPortfolioListHeader > li {
+  display: table-cell;
+  width: 50%;
+
 }
 
 .currentPortfolioList > li {
   display: table-cell;
-  width: 100%;
+  width: 50%;
 }
+
+#currentPortfolioDetails {
+  text-align: center;
+  font-size: 1.3rem;
+}
+#currentPortfolioChart > h2 {
+  padding: 0;
+}
+#userDash > h2 {
+  font-size: 2rem;
+}
+.userDash-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-gap: 1%;
+}
+
+.grid-item-table {
+  grid-column: 2/5;
+}
+
+@media only screen and (max-width: 680px){
+  #currentPortfolioChart {
+    width: auto;
+    padding: 1%;
+  }
+
+  #currentPortfolioTable {
+    width: auto;
+    padding: 1%;
+  }
+  .userDash-container {
+    display: block;
+    padding: 1%;
+  }
+
+}
+
+
+
