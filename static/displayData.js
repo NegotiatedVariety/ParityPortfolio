@@ -64,7 +64,7 @@ createTable = (elementId, chartValues) => {
         assetValue.innerText = '$' + chartValues[i].toFixed(2);
 
         let assetPercentage = document.createElement('li');
-        assetPercentage.innerText = ((chartValues[i] / chartTotal) * 100) + '%';
+        assetPercentage.innerText = ((chartValues[i] / chartTotal) * 100).toFixed(2) + '%';
 
         tableDiv.appendChild(assetList);
 
