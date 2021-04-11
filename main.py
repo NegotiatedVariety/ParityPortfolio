@@ -84,7 +84,7 @@ class SavedPreset(db.Model):
     money_market_target = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return f"User('{self.user_id}', '{self.domestic_target}', '{self.international_target}', '{self.money_market_target}', '{self.bonds_target_target}')"
+        return f"User('{self.user_id}', '{self.domestic_target}', '{self.international_target}', '{self.money_market_target}', '{self.bonds_target}')"
 
 
 with open('presets.json', 'r') as input:
