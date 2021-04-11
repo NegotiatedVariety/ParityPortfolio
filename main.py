@@ -115,9 +115,10 @@ def register():
     if form.validate_on_submit():
         enter_user = form.username.data
         user_query = User.query.filter_by(username=enter_user).first()
+
         # if username already exists
         if user_query:
-            flash("user exists", "Danger")
+            flash("Username already exists. Please choose another", "Danger")
             return redirect(url_for("register"))
 
         # create instance of a user with info entered from Registration form
