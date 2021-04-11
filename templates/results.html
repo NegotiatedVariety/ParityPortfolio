@@ -54,4 +54,25 @@
         </ul>
     </div>
 </div>
+
+<!--Doughnut Chart Script-->
+{% include "displayCurrentData.html" %}
+<div id="currentPortfolioChart">
+    <h2>Current Portfolio</h2>
+    <canvas id="myChart"></canvas>
+
+    <div id="currentPortfolioTable">
+    </div>
+</div>
+
+<!--Doughnut Chart Script-->
+{% include "displayTargetData.html" %}
+<div id="targetPortfolioChart">
+    <h2>Target Portfolio</h2>
+    <canvas id="myChart2"></canvas>
+
+    <div id="targetPortfolioTable">
+    </div>
+</div>
+
 {% endblock %}

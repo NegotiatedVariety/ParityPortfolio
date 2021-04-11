@@ -188,6 +188,10 @@ def results():
     percent_diff_col = [percent_diff_domestic, percent_diff_international, percent_diff_bonds,
                         percent_diff_money_market]
 
+    # Create copy of target investment column prior to formatting
+    current_investments_chart = [x for x in current_investments_col]
+    target_investments_chart = [x for x in target_investment_col]
+
     # Format output columns
     current_investments_col = ['$' + '{:,.2f}'.format(round(x, 2)) for x in current_investments_col]
     current_percentage_col = ['{:,.2f}'.format(round(x, 2)) + '%' for x in current_percentage_col]
@@ -201,7 +205,8 @@ def results():
     output = [categories_col, current_investments_col, current_percentage_col, target_investment_col,
               target_percentage_col, cash_diff_col, percent_diff_col]
 
-    return render_template('results.html', title='Results', data=output, preset_name=preset_name)
+    return render_template('results.html', title='Results', data=output, preset_name=preset_name, labels=categories_col,
+                           values=current_investments_chart, values2=target_investments_chart)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
