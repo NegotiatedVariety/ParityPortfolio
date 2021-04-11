@@ -6,9 +6,33 @@ body {
 .navbar > ul {
   list-style-type: none;
 }
- .navbar-default {
-   color: rgb(153, 207, 127);
- }
+
+.navbar-nav {
+	margin-bottom: 0px!important;
+    background-color: #2a9d8f!important;
+    border: none!important;
+   /* position: fixed;*/
+    height: 80px;
+    width: 100vw;
+    z-index: 5;
+}
+
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #888;
+  background: linear-gradient(0.25turn,#2260A0, #4E88C4);
+  height: 3px;
+}
+
+ul.nav.navbar-nav {
+  color: white!important;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 27px;
+      width: 100vw;
+  text-align: center;
+}
 
 ul > li {
   display: inline;
@@ -33,6 +57,7 @@ button {
   text-align:center;
   transition: all 0.2s;
 }
+
     
 button:hover {
   color: white;
@@ -54,4 +79,28 @@ button:hover {
 
 #currentPortfolioChart {
   width: 25%;
+  padding: 1%;
+}
+
+#currentPortfolioChart > h2 {
+  text-align: center;
+  font-size: 2vw;
+}
+
+#currentPortfolioTable {
+  width: 75%;
+  margin: 0 auto;
+  padding: 5% 0;
+}
+.currentPortfolioList {
+  border-radius: 0.25rem;
+  padding-left: 2%;
+  display: table;
+  list-style-type: none;
+  font-size: 1.2vw;
+}
+
+.currentPortfolioList > li {
+  display: table-cell;
+  width: 100%;
 }
