@@ -9,7 +9,7 @@
 
   <form method="POST" action="">
     {{ form.hidden_tag() }}
-        <div>
+        <div class="mb-3">
             {{ form.username.label }}
 
             {% if form.username.errors %}
@@ -21,7 +21,7 @@
                 {{ form.username }}
             {% endif %}
         </div>
-        <div>
+        <div class="mb-3">
             {{ form.password.label }}
 
             {% if form.password.errors %}
@@ -33,7 +33,7 @@
                 {{ form.password }}
             {% endif %}
         </div>
-        <div>
+        <div class="mb-3">
             {{ form.confirm.label }}
 
             {% if form.confirm.errors %}
