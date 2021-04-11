@@ -1,24 +1,28 @@
-let ctx = document.getElementById('myChart').getContext('2d');
-let myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: chartLabels,
-        datasets: [{
-            label: 'Assets ($)',
-            data: chartValues,
-            backgroundColor: chartColors,
-            hoverOffset: 4
-        }]
-    },
-    options: {
-        cutout: '75%',
-        plugins: {
-            legend: {
-                display: false
+window.onload = () => {
+    let ctx = document.getElementById('myChart').getContext('2d');
+    let myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: chartLabels,
+            datasets: [{
+                label: 'Assets ($)',
+                data: chartValues,
+                backgroundColor: chartColors,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            cutout: '75%',
+            plugins: {
+                legend: {
+                    display: false
+                }
             }
         }
-    }
-});
+    });
+    getAccountDetails();
+    createTable();
+}
 
 createTable = () => {
     let tableDiv = document.getElementById('currentPortfolioTable');
@@ -52,7 +56,8 @@ getAccountDetails = () => {
     let totalValue = document.getElementById('currentValue');
     totalValue.innerText = '$' + chartTotal;
     
+    let currentPreset = document.getElementById('currentPreset');
+    currentPreset.innerText = chartPreset;
 }
 
-createTable();
-getAccountDetails();
+

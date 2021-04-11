@@ -5,6 +5,7 @@ from flask_nav import Nav
 from flask_nav.elements import Navbar, View
 from flask_bootstrap import Bootstrap
 from dominate.tags import img
+from flask_migrate import Migrate
 import json
 import forms
 
@@ -13,7 +14,7 @@ app = Flask(__name__, static_url_path='/static')
 app.config['SECRET_KEY'] = 'QUWU7Ax94jCsknrT'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
-
+migrate = Migrate(app, db)
 
 Bootstrap(app)
 nav = Nav(app)
@@ -79,6 +80,7 @@ class Portfolio(db.Model):
 # Creates a SavedPreset table in database with appropriate columns
 class SavedPreset(db.Model):
     id = db.Column(db.Integer, primary_key = True)
+    preset_name = db.Column(db.String(50), unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     domestic_target = db.Column(db.Integer, nullable=False)
     international_target = db.Column(db.Integer, nullable=False)
@@ -86,7 +88,7 @@ class SavedPreset(db.Model):
     money_market_target = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return f"User('{self.user_id}', '{self.domestic_target}', '{self.international_target}', '{self.money_market_target}', '{self.bonds_target}')"
+        return f"User('{self.user_id}', '{self.preset_name}', {self.domestic_target}', '{self.international_target}', '{self.money_market_target}', '{self.bonds_target}')"
 
 
 with open('presets.json', 'r') as input:
@@ -219,7 +221,7 @@ def results():
               target_percentage_col, cash_diff_col, percent_diff_col]
 
     # create instance of a portfolio info with info entered from form
-    data = SavedPreset(user_id=session['userID'], domestic_target=target_domestic_investment,
+    data = SavedPreset(user_id=session['userID'], preset_name=preset_name, domestic_target=target_domestic_investment,
                        international_target=target_international_investment,
                        money_market_target=target_money_market_investment, bonds_target=target_bonds_investment)
     db.session.add(data)
@@ -278,9 +280,10 @@ def userDashboard():
 
         labels = ["Domestic", "International", "Bonds", "Money Market"]
         portfolio_values = [user_portfolio.domestic, user_portfolio.international, user_portfolio.bonds, user_portfolio.money_market]
+        preset = target_portfolio.preset_name
         target_values = [target_portfolio.domestic_target, target_portfolio.international_target, target_portfolio.bonds_target, target_portfolio.money_market_target]
         total = [sum(portfolio_values)]
-        return render_template('userDashboard.html', user = user, labels = labels, values = portfolio_values, total = total, target_values = target_values)
+        return render_template('userDashboard.html', user = user, labels = labels, values = portfolio_values, total = total, targets = target_values, current_preset = preset)
     else:
         return NotLoggedIn()
 

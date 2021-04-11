@@ -1,10 +1,10 @@
 <script id="chartScript" async>
-    let chartTitle = "{{ title }}";
+    let chartPreset = "{{ current_preset }}";
     let chartTotal = {{ total | safe }};
     let chartLabels = {{ labels | safe }};
     let chartValues = {{ values | safe }};
-    let targetValues = {{ target_values | safe }};
+    let targetValues = {{ targets | safe }};
     let chartColors = ['#264653', '#2a9d8f', '#e9c46a', '#f4a261'];
 </script>
 
-<script src="{{url_for('static', filename='dashboardData.js')}}" defer></script>
+<script src="{{url_for('static', filename='dashboardData.js')}}"></script>
