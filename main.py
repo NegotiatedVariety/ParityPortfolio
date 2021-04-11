@@ -89,12 +89,11 @@ def home():
 def presets():
 
     if 'user' not in session:
-        flash("You must be logged in to access that page!")
-        return redirect(url_for('login'))
+        return NotLoggedIn()
     else:
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
         if user_portfolio is None:
-            flash("Please Update your Portfolio data first")
+            flash("Please Update Portfolio data first")
             return redirect(url_for('enter_port'))
         return render_template('presets.html', title='Base Data', preset_data = preset_data)
 
@@ -122,8 +121,7 @@ def enter_port():
         if 'user' in session:
             return render_template('userportfolio.html', title='Portfolio', form=form)
         else:
-            flash("You must be logged in to access that page!")
-            return redirect(url_for('login'))
+            return NotLoggedIn()
     else:    
         if form.validate_on_submit():
             # create instance of a portfolio info with info entered from form
@@ -247,10 +245,9 @@ def login():
 def userDashboard():
     if 'user' in session:
         user = session['user']
-        userID = session['userID']
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
         if user_portfolio is None:
-            flash("Please Update your Portfolio data first")
+            flash("Please Update Portfolio data first")
             return redirect(url_for('home'))
 
         
@@ -272,7 +269,7 @@ def logout():
 
 def NotLoggedIn():
     flash("Please login or register")
-    return redirect(url_for('home'))
+    return redirect(url_for('login'))
 
 # run on debug mode to not re-start server after changes
 if __name__ == '__main__':
