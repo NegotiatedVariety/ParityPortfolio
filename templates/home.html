@@ -3,14 +3,14 @@
 
 <div class="container">
     <div class="row">
-      <div class="jumbotron text-left">
+      <div class="jumbotron jumbotron-fluid text-left">
         <h1>Welcome to Parity Portfolio</h1>
         <p>
           A simple utility tool to take the fuss out of rebalancing, completely
           agnostic of broker, investment, and platform.
         </p>
       </div>
-      <div class="row p-1 mb-3">
+      <div class="row p-1 mb-3" style="margin: 0 auto; width: 50%; padding: 10px;">
         <div
           class="p-3 m-3 col-md-3 text-center rounded"
           style="background: #e9c46a;"
@@ -30,7 +30,7 @@
           <img
             src="../static/images/pie-chart.png"
             class="img-fluid mb-2"
-            style="height: 100px;"
+            style="width: 100%; height: auto;"
           />
           <p style="color: black;">Select a target portfolio</p>
         </div>
@@ -46,16 +46,17 @@
           />
           <p style="color: black;">See your rebalancing guide!</p>
         </div>
-      </div>
+      
     </div>
   </div>
   <div class="row justify-content-center">
     <div class="col-md-3">
       <!-- <a href="{{ url_for('enter_port')}}">Get Started</a> -->
-        <button name="preset-btn" onclick="location.href='{{ url_for('enter_port')}}'">
+        <button id="start-btn" name="preset-btn" onclick="location.href='{{ url_for('enter_port')}}'">
           Get Started
         </button>
       </form>
+      </div>
     </div>
 </div>
 {% endblock %}
