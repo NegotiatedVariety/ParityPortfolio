@@ -74,7 +74,7 @@ createTable = (elementId, chartValues) => {
     }
 }
 
-if (showTables == "true")
+if (showTables == true)
 {
     createTable('currentPortfolioTable', chartValues1);
     // Only create Target Portfolio table if Preset data was received
