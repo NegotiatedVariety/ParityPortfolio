@@ -20,8 +20,11 @@
 </head>
 
 <body>
+    {% extends "bootstrap/base.html" %}
     
-     {% include "navbar.html" %}
+    {% block navbar %}
+        {{ nav.the_nav.render() }}
+    {% endblock %}
 
      
        <div>

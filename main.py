@@ -13,33 +13,11 @@ app.config['SECRET_KEY'] = 'QUWU7Ax94jCsknrT'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
 
-nav = Nav(app)
+
 Bootstrap(app)
+nav = Nav(app)
 
-# Creates a User table in database with appropriate columns 
-class User(db.Model):
-   id = db.Column(db.Integer, primary_key = True)
-   username = db.Column(db.String(50), unique=True, nullable=False)
-   password = db.Column(db.String(50), nullable=False)
-
-   def __repr__(self):
-       return f"User('{self.username}')"
-
-# Creates a Portfolio table in database with appropriate columns
-class Portfolio(db.Model):
-   id = db.Column(db.Integer, primary_key = True)
-   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-   international = db.Column(db.Integer, nullable=False)
-   domestic = db.Column(db.Integer, nullable=False)
-   bonds = db.Column(db.Integer, nullable=False)
-   money_market = db.Column(db.Integer, nullable=False)
-
-   def __repr__(self):
-       return f"User('{self.user_id}', '{self.domestic}', '{self.international}', '{self.money_market}', '{self.bonds}')"
-
-
-with open('presets.json', 'r') as input:
-    preset_data = json.load(input)
+nav.register_element('top', 'the_nav')
 
 
 @nav.navigation('the_nav')
@@ -73,6 +51,32 @@ def create_nav():
                         View('Login', 'login')
         )
 
+
+
+# Creates a User table in database with appropriate columns 
+class User(db.Model):
+   id = db.Column(db.Integer, primary_key = True)
+   username = db.Column(db.String(50), unique=True, nullable=False)
+   password = db.Column(db.String(50), nullable=False)
+
+   def __repr__(self):
+       return f"User('{self.username}')"
+
+# Creates a Portfolio table in database with appropriate columns
+class Portfolio(db.Model):
+   id = db.Column(db.Integer, primary_key = True)
+   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+   international = db.Column(db.Integer, nullable=False)
+   domestic = db.Column(db.Integer, nullable=False)
+   bonds = db.Column(db.Integer, nullable=False)
+   money_market = db.Column(db.Integer, nullable=False)
+
+   def __repr__(self):
+       return f"User('{self.user_id}', '{self.domestic}', '{self.international}', '{self.money_market}', '{self.bonds}')"
+
+
+with open('presets.json', 'r') as input:
+    preset_data = json.load(input)
 
 
 

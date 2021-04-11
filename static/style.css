@@ -6,9 +6,33 @@ body {
 .navbar > ul {
   list-style-type: none;
 }
- .navbar-default {
-   color: rgb(153, 207, 127);
- }
+
+.navbar {
+  margin-bottom: 0px!important;
+  background-color: white!important;
+  border: none!important;
+ /* position: fixed;*/
+  height: 80px;
+  width: 100vw;
+  z-index: 5;
+
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #888;
+  background: linear-gradient(0.25turn,#2260A0, #4E88C4);
+  height: 3px;
+}
+
+ul.nav.navbar-nav {
+  color: white!important;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 27px;
+      width: 100vw;
+  text-align: center;
+}
 
 ul > li {
   display: inline;
