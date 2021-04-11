@@ -244,6 +244,7 @@ def login():
 @app.route('/userDashboard')
 def userDashboard():
     if 'user' in session:
+        user = session['user']
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
         if user_portfolio is None:
             flash("Please Update Portfolio data first")
