@@ -113,30 +113,35 @@ def presets():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
+        enter_user = form.username.data
+        user_query = User.query.filter_by(username=enter_user).first()
+        # if username already exists
+        if user_query:
+            flash("user exists", "Danger")
+            return redirect(url_for("register"))
+
         # create instance of a user with info entered from Registration form
         user = User(username=form.username.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
-
-        username = form.username.data
-        user_query = User.query.filter_by(username=username).first()
-        session['user'] = user_query.username
-        session['userID'] = user_query.id
-        return redirect(url_for('home'))
+        flash('You have successfuly registered. Please login.', 'success')
+        return redirect(url_for('login'))
 
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/enterport', methods=['GET', 'POST'])
 def enter_port():
     form = PortfolioForm()
+    # Display current portfolio data to user
     if request.method == "GET":
         if 'user' in session:
             return render_template('userportfolio.html', title='Portfolio', form=form)
         else:
             return NotLoggedIn()
+    # If method = POST
     else:    
         if form.validate_on_submit():
-            # create instance of a portfolio info with info entered from form
+            # Create instance of a portfolio info with info entered from form
             data = Portfolio(user_id=session['userID'], domestic=form.domestic.data, 
             international=form.international.data, money_market=form.money_market.data, bonds=form.bonds.data)
             db.session.add(data)
@@ -147,10 +152,12 @@ def enter_port():
 @app.route('/results', methods=['GET', 'POST'])
 def results():
 
+    # Get user id from db to associate with chosen preset option
     user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
     selected_preset = preset_data[int(request.form['preset-btn'])]
     preset_name = selected_preset['preset_name']
 
+    # Save user's preset info
     domestic = user_portfolio.domestic
     international = user_portfolio.international
     bonds = user_portfolio.bonds
@@ -267,6 +274,7 @@ def login():
 
 @app.route('/userdashboard')
 def user_dashboard():
+    # user is logged in
     if 'user' in session:
         user = session['user']
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()

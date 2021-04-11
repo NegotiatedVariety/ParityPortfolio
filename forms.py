@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import Length, DataRequired, EqualTo, InputRequired, Email
 from wtforms.fields.html5 import EmailField
 
+
 class RegistrationForm(FlaskForm):
     username =StringField('Username', validators=[DataRequired(), Length(max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
