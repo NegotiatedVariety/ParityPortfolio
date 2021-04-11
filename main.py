@@ -105,7 +105,7 @@ def presets():
     else:
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
         if user_portfolio is None:
-            flash("Please Update Portfolio data first")
+            flash("Please Update Portfolio data first", "error")
             return redirect(url_for('enter_port'))
         return render_template('presets.html', title='Base Data', preset_data = preset_data)
 
@@ -118,7 +118,7 @@ def register():
 
         # if username already exists
         if user_query:
-            flash("Username already exists. Please choose another", "Danger")
+            flash("Username already exists. Please choose another", "error")
             return redirect(url_for("register"))
 
         # create instance of a user with info entered from Registration form
@@ -146,7 +146,7 @@ def enter_port():
             entered_info = [form.domestic.data, form.international.data, form.bonds.data, form.money_market.data]
             for amt in entered_info:
                 if amt.isdecimal() is False:
-                        flash("Please only enter numbers.")
+                        flash("Please only enter numbers.", "error")
                         return redirect(url_for("enter_port"))
 
             # Create instance of a portfolio info with info entered from form
@@ -288,7 +288,7 @@ def user_dashboard():
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
         target_portfolio = SavedPreset.query.filter_by(user_id=session['userID']).order_by(SavedPreset.id.desc()).first()
         if user_portfolio is None:
-            flash("Please Update Portfolio data first")
+            flash("Please Update Portfolio data first", "error")
             return redirect(url_for('home'))
 
         if target_portfolio is None:
@@ -316,7 +316,7 @@ def logout():
 
 
 def NotLoggedIn():
-    flash("Please login or register")
+    flash("Please login or register", "error")
     return redirect(url_for('login'))
 
 # run on debug mode to not re-start server after changes
