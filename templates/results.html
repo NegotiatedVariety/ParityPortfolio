@@ -8,23 +8,23 @@
         <p>Target Preset Portfolio: {{ preset_name }}</p>
     </div>
     <div class="resultsTable">
-    <table class="table table-secondary" style ="width:75%; white-space:nowrap;">
+    <table class="table table-hover" >
         <thead>
             <tr>
-                <th></th>
-                <th colspan="2">Your Portfolio</th>
-                <th colspan="2">Target Preset</th>
-                <th colspan="2">Rebalance</th>
+                <th style="border-color: transparent;"></th>
+                <th class="table-warning lead text-center" colspan="2" style="border-color: #fff3cd;">Your Portfolio</th>
+                <th class="table-info lead text-center" colspan="2" style="border-color: #cff4fc;">"{{ preset_name }}" Portfolio</th>
+                <th class="table-success lead text-center" colspan="2" style="border-color: #d1e7dd;">Rebalance</th>
             </tr>
             
             <tr>
                 <th></th>
-                <th>($)</th>
-                <th>(%)</th>
-                <th>($)</th>
-                <th>(%)</th>
-                <th>($)</th>
-                <th>(%)</th>
+                <th class="table-warning lead text-center">$</th>
+                <th class="table-warning lead text-center">%</th>
+                <th class="table-info lead text-center">$</th>
+                <th class="table-info lead text-center">%</th>
+                <th class="table-success lead text-center">$</th>
+                <th class="table-success lead text-center">%</th>
             </tr>
         </thead>
     <tbody>
@@ -33,13 +33,13 @@
                 {% for j in range(data| length) %}
 
                     {% if data[j][i][0] == '+' %}
-                    <td style="color:#228B22;">
+                    <td class="lead" style="color:#228B22; font-weight: 400;">
 
                     {% elif data[j][i][0] == '-' %}
-                    <td style="color:#DC143C;">
+                    <td class="lead" style="color:#DC143C; font-weight: 400;">
 
                     {% else %}
-                    <td>
+                    <td class="lead">
                     {% endif %}
 
                     {{ data[j][i] }}
@@ -52,11 +52,12 @@
     </div>
 
     <div class="advice">
-        <ul style="display:list-item; list-style-type:square">
+        <ul>
             {% for i in range(data[0]| length) %}
                 {% if data[5][i][0] != '$' %}
-                <li>You should <b>{% if data[5][i][0] == '+' %} invest {% else %} sell {% endif %} {{ data[5][i][1:] }}</b>
-                    in <b>{{ data[0][i] }}</b></li>
+                <li><b>{% if data[5][i][0] == '+' %} Invest {% else %} Sell {% endif %} {{ data[5][i][1:] }}</b>
+                    in <em>{{ data[0][i] }}</em>
+                </li>
                 {% endif %}
             {% endfor %}
         </ul>

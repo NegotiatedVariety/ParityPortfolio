@@ -27,11 +27,11 @@ def create_nav():
         user_portfolio = Portfolio.query.filter_by(user_id=session['userID']).order_by(Portfolio.id.desc()).first()
         if user_portfolio is not None:
 
-            return Navbar( 'Parity Portfolio',
+            return Navbar('Parity Portfolio',
                             View('Home', 'home'),
                             View('Dashboard', 'userDashboard'),
-                            View('Update Portfolio', 'enter_port'),
-                            View('Rebalance Portfolio', 'presets'),
+                            View('My Portfolio', 'enter_port'),
+                            View('Select Preset', 'presets'),
                             View('Logout', 'logout')
             )
 
@@ -39,13 +39,13 @@ def create_nav():
 
             return Navbar('Parity Portfolio',
                           View('Home', 'home'),
-                          View('Update Portfolio', 'enter_port'),
+                          View('My Portfolio', 'enter_port'),
                           View('Logout', 'logout')
 
             )
 
     else:
-        return Navbar( 'Parity Portfolio',
+        return Navbar('Parity Portfolio',
                         View('Home', 'home'),
                         View('Register', 'register'),
                         View('Login', 'login')
