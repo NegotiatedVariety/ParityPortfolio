@@ -1,6 +1,10 @@
 # ParityPortfolio
 Rebalance Your Portfolio
 
+Devpost link: https://devpost.com/software/parity-portfolio#updates
+Youtube link: https://youtu.be/XSBdlFVdDJA
+Heroku link: https://parity-portfolio.herokuapp.com/
+
 # Setup Enviroment
 Install Python 3 <br/>
 Install pip <br/>
