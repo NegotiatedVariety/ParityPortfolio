@@ -1,6 +1,5 @@
 # ParityPortfolio
 Rebalance Your Portfolio
-![gif](ParityPortfolio.gif)
 
 ![landing](https://user-images.githubusercontent.com/69094063/114373681-75b9e600-9b48-11eb-894b-954555a9774e.png)
 
